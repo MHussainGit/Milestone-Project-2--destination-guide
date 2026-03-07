@@ -1,0 +1,53 @@
+/* styles.css - Used to customise the appearance of the Destimation Guide website.
+----------------------------------------------------------------------------------
+* Contains custom styles for the header, footer, and main content sections of the website 
+* and extends the default Bootstrap styling to differentiate the look and feel of the site.
+*/
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Footer styling */
+footer {
+    background-color: #343a40; /* bootstrap dark variant */
+    color: #fff;
+    padding: 1rem 0
+}
+
+footer .container {
+    text-align: center;
+}
+
+/* Navbar Customization */
+.navbar-brand, .navbar-nav .nav-link {
+    font-family: 'Roboto', sans-serif; /* modern font for navbar */
+    font-weight: 500;
+}
+
+/* uniform font sizes and spacing in navbar */
+.navbar-brand {
+    font-size: 1.5rem; /* larger brand title */
+}
+.navbar-nav .nav-link {
+    font-size: 1rem; /* consistent link size */
+    padding-left: .75rem;
+    padding-right: .75rem;
+}
+
+/* Active link styling */
+.navbar-nav .nav-link {
+    transition: color 0.3s, text-decoration-color 0.3s; /* smooth transition for active state */
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: 700;
+    text-decoration: underline;
+}
