@@ -228,15 +228,12 @@ function showCityResults(city) {
     renderAttractionList(city);
 }
 
-// split out the attraction rendering so it can be reused when we bail early due to missing API key
 function renderAttractionList(city) {
     const results = document.getElementById('results');
     if (!results) return;
-    
-    const attractions = ['Parks', 'Attractions', 'Hotels', 'Historic Sites'];
+    const attractions = ['Restaurants', 'Parks', 'Historic Sites', 'Attractions', 'Hotels'];
     const ul = document.createElement('ul');
     ul.className = 'list-group mt-3';
-    
     attractions.forEach(item => {
         const li = document.createElement('li');
         li.className = 'list-group-item';
