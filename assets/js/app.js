@@ -25,19 +25,45 @@ function populateSuggestions(list) {
 
 // shared list of example cities used for both destinations and autocomplete
 const sampleCities = [
-    'Paris',
-    'New York',
-    'Tokyo',
-    'Barcelona',
-    'Sydney',
-    'Rome',
-    'London',
-    'Rio de Janeiro',
-    'Madrid',
+    { 
+        name: "Paris, France",
+        image: "assets/images/paris.webp"
+    },
+    { 
+        name: "New York, USA",
+        image: "assets/images/new-york.webp"
+    },
+    { 
+        name: "Tokyo, Japan",
+        image: "assets/images/tokyo.webp"
+    },
+    { 
+        name: "Barcelona, Spain",
+        image: "assets/images/barcelona.webp"
+    },
+    { 
+        name: "Sydney, Australia",
+        image: "assets/images/sydney.webp"
+    },
+    { 
+        name: "Rome, Italy",
+        image: "assets/images/rome.webp"
+    },
+    { 
+        name: "London, UK",
+        image: "assets/images/london.webp"
+    },
+    { 
+        name: "Rio de Janeiro, Brazil",
+        image: "assets/images/rio-de-janeiro.webp"
+    },
+    { 
+        name: "Madrid, Spain",
+        image: "assets/images/madrid.webp"
+    }
 ];
 
-// track the original city entered by the user so we can always display links
-// like "Museum in Paris" even after the query string grows with suggestions.
+// baseCity is used to keep track of the original city the user searched for
 let baseCity = '';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,14 +86,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // populate suggestions every load (works even if #citySuggestions not present)
-    populateSuggestions(sampleCities);
+    populateSuggestions(sampleCities.map(city => city.name));
     const searchForm = document.getElementById('searchForm');
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const city = document.getElementById('cityInput').value.trim();
             if (!city) {
-                alert('Please enter a city name');
+                alert('Please Enter a City/Country Name');
                 return;
             }
             // when the user types/searches manually, treat this as the new base city
@@ -76,30 +102,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // If on destinations page, populate list
-    const destList = document.getElementById('destList');
-    if (destList) {
-        // also populate datalist for autocomplete
-        populateSuggestions(sampleCities);
-        sampleCities.forEach(name => {
-            const col = document.createElement('div');
-            col.className = 'col-md-4 mb-4';
-            const card = document.createElement('div');
-            card.className = 'card card-destination h-100';
-            card.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">${name}</h5>
-                    <p class="card-text">Click to search this destination</p>
-                </div>
-            `;
-            card.addEventListener('click', () => {
-                // redirect to index with query param
-                window.location.href = `index.html?city=${encodeURIComponent(name)}`;
-            });
-            col.appendChild(card);
-            destList.appendChild(col);
+// If on destinations page, populate list
+const destList = document.getElementById('destList');
+
+if (destList) {
+    // also populate datalist for autocomplete
+    populateSuggestions(sampleCities.map(c => c.name));
+
+    sampleCities.forEach(city => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4 mb-4';
+
+        const card = document.createElement('div');
+        card.className = 'card card-destination h-100';
+
+        card.innerHTML = `
+            <img src="${city.image}" class="card-img-top" alt="${city.name}">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-center">${city.name}</h5>
+                <button class="btn btn-primary mt-auto search-btn">
+                    Search
+                </button>
+            </div>
+        `;
+
+        const button = card.querySelector('.search-btn');
+        button.addEventListener('click', () => {
+            window.location.href = `index.html?city=${encodeURIComponent(city.name)}`;
         });
-    }
+
+        col.appendChild(card);
+        destList.appendChild(col);
+    });
+}
 
     // If index page with query param, automatically search
     const params = new URLSearchParams(window.location.search);
