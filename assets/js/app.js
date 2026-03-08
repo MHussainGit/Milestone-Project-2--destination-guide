@@ -23,43 +23,47 @@ function populateSuggestions(list) {
     });
 }
 
+const BASE_PATH = window.location.hostname.includes("github.io")
+  ? "/Milestone-Project-2--destination-guide/"
+  : "/";
+  
 // shared list of example cities used for both destinations and autocomplete
 const sampleCities = [
     { 
         name: "Paris, France",
-        image: "/Milestone-Project-2--destination-guide/assets/images/paris.webp"
+        image: `${BASE_PATH}assets/images/paris.webp`
     },
     { 
         name: "New York, USA",
-        image: "/Milestone-Project-2--destination-guide/assets/images/new-york.webp"
+        image: `${BASE_PATH}assets/images/new-york.webp`
     },
     { 
         name: "Tokyo, Japan",
-        image: "/Milestone-Project-2--destination-guide/assets/images/tokyo.webp"
+        image: `${BASE_PATH}assets/images/tokyo.webp`
     },
     { 
         name: "Barcelona, Spain",
-        image: "/Milestone-Project-2--destination-guide/assets/images/barcelona.webp"
+        image: `${BASE_PATH}assets/images/barcelona.webp`
     },
     { 
         name: "Sydney, Australia",
-        image: "/Milestone-Project-2--destination-guide/assets/images/sydney.webp"
+        image: `${BASE_PATH}assets/images/sydney.webp`
     },
     { 
         name: "Rome, Italy",
-        image: "/Milestone-Project-2--destination-guide/assets/images/rome.webp"
+        image: `${BASE_PATH}assets/images/rome.webp`
     },
     { 
         name: "London, UK",
-        image: "/Milestone-Project-2--destination-guide/assets/images/london.webp"
+        image: `${BASE_PATH}assets/images/london.webp`
     },
     { 
         name: "Rio de Janeiro, Brazil",
-        image: "/Milestone-Project-2--destination-guide/assets/images/rio-de-janeiro.webp"
+        image: `${BASE_PATH}assets/images/rio-de-janeiro.webp`
     },
     { 
         name: "Madrid, Spain",
-        image: "/Milestone-Project-2--destination-guide/assets/images/madrid.webp"
+        image: `${BASE_PATH}assets/images/madrid.webp`
     }
 ];
 
