@@ -27,39 +27,39 @@ function populateSuggestions(list) {
 const sampleCities = [
     { 
         name: "Paris, France",
-        image: "/assets/images/paris.webp"
+        image: "assets/images/paris.webp"
     },
     { 
         name: "New York, USA",
-        image: "/assets/images/new-york.webp"
+        image: "assets/images/new-york.webp"
     },
     { 
         name: "Tokyo, Japan",
-        image: "/assets/images/tokyo.webp"
+        image: "assets/images/tokyo.webp"
     },
     { 
         name: "Barcelona, Spain",
-        image: "/assets/images/barcelona.webp"
+        image: "assets/images/barcelona.webp"
     },
     { 
         name: "Sydney, Australia",
-        image: "/assets/images/sydney.webp"
+        image: "assets/images/sydney.webp"
     },
     { 
         name: "Rome, Italy",
-        image: "/assets/images/rome.webp"
+        image: "assets/images/rome.webp"
     },
     { 
         name: "London, UK",
-        image: "/assets/images/london.webp"
+        image: "assets/images/london.webp"
     },
     { 
         name: "Rio de Janeiro, Brazil",
-        image: "/assets/images/rio-de-janeiro.webp"
+        image: "assets/images/rio-de-janeiro.webp"
     },
     { 
         name: "Madrid, Spain",
-        image: "/assets/images/madrid.webp"
+        image: "assets/images/madrid.webp"
     }
 ];
 
