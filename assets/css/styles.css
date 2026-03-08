@@ -1,8 +1,10 @@
-/* styles.css - Used to customise the appearance of the Destimation Guide website.
-----------------------------------------------------------------------------------
-* Contains custom styles for the header, footer, and main content sections of the website 
-* and extends the default Bootstrap styling to differentiate the look and feel of the site.
-*/
+/*
+ * styles.css - custom styles for Destination Guide
+ * ----------------------------------------------------
+ * Contains typography, layout helpers, navbar, footer, and
+ * results styling. Extends Bootstrap 5.3 defaults with a few
+ * project-specific tweaks.
+ */
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -12,23 +14,34 @@ body {
 }
 
 main {
-    flex: 1 0 auto;
+    flex: 1 0 auto; /* allow main content to grow and push footer down */
 }
 
-/* Footer styling */
+#results {
+    margin-top: 1rem;
+}
+
+/* footer should be dark grey with white text */
 footer {
     background-color: #343a40; /* bootstrap dark variant */
     color: #fff;
-    padding: 1rem 0
+    padding: 1rem 0;
 }
 
 footer .container {
     text-align: center;
 }
 
-/* Navbar Customization */
+.card-destination {
+    cursor: pointer;
+}
+
+/* -----------------------------------------------------------------
+   Navbar typography & spacing
+   ----------------------------------------------------------------- */
+
 .navbar-brand, .navbar-nav .nav-link {
-    font-family: 'Roboto', sans-serif; /* modern font for navbar */
+    font-family: 'Roboto', sans-serif;
     font-weight: 500;
 }
 
@@ -42,9 +55,9 @@ footer .container {
     padding-right: .75rem;
 }
 
-/* Active link styling */
+/* make active link visually distinct */
 .navbar-nav .nav-link {
-    transition: color 0.3s, text-decoration-color 0.3s; /* smooth transition for active state */
+    transition: color 0.3s, text-decoration-color 0.3s;
 }
 
 .navbar-nav .nav-link.active {
