@@ -171,7 +171,7 @@ function showCityResults(city) {
 function renderAttractionList(city) {
     const results = document.getElementById('results');
     if (!results) return;
-    const attractions = ['Restaurants', 'Parks', 'Historic Sites', 'Attractions', 'Hotels'];
+    const attractions = ['Parks', 'Attractions', 'Hotels', 'Historic Sites'];
     const ul = document.createElement('ul');
     ul.className = 'list-group mt-3';
     attractions.forEach(item => {
