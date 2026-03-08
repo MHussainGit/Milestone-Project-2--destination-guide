@@ -42,39 +42,39 @@ const BASE_PATH = getBasePath();
 const sampleCities = [
     {
         name: "Paris, France",
-        image: BASE_PATH + "assets/images/paris.webp"
+        image: BASE_PATH + "assets/images/Paris.webp"
     },
     {
         name: "New York, USA",
-        image: BASE_PATH + "assets/images/new-york.webp"
+        image: BASE_PATH + "assets/images/New-York.webp"
     },
     {
         name: "Tokyo, Japan",
-        image: BASE_PATH + "assets/images/tokyo.webp"
+        image: BASE_PATH + "assets/images/Tokyo.webp"
     },
     {
         name: "Barcelona, Spain",
-        image: BASE_PATH + "assets/images/barcelona.webp"
+        image: BASE_PATH + "assets/images/Barcelona.webp"
     },
     {
         name: "Sydney, Australia",
-        image: BASE_PATH + "assets/images/sydney.webp"
+        image: BASE_PATH + "assets/images/Sydney.webp"
     },
     {
         name: "Rome, Italy",
-        image: BASE_PATH + "assets/images/rome.webp"
+        image: BASE_PATH + "assets/images/Rome.webp"
     },
     {
         name: "London, UK",
-        image: BASE_PATH + "assets/images/london.webp"
+        image: BASE_PATH + "assets/images/London.webp"
     },
     {
         name: "Rio de Janeiro, Brazil",
-        image: BASE_PATH + "assets/images/rio-de-janeiro.webp"
+        image: BASE_PATH + "assets/images/Rio-de-Janeiro.webp"
     },
     {
         name: "Madrid, Spain",
-        image: BASE_PATH + "assets/images/madrid.webp"
+        image: BASE_PATH + "assets/images/Madrid.webp"
     }
 ];
 
