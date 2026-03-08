@@ -93,15 +93,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             card.addEventListener('click', () => {
-                // redirect to home with query param
-                window.location.href = `home.html?city=${encodeURIComponent(name)}`;
+                // redirect to index with query param
+                window.location.href = `index.html?city=${encodeURIComponent(name)}`;
             });
             col.appendChild(card);
             destList.appendChild(col);
         });
     }
 
-    // If Home page with query param, automatically search
+    // If index page with query param, automatically search
     const params = new URLSearchParams(window.location.search);
     if (params.has('city')) {
         const cityName = params.get('city');
@@ -125,7 +125,7 @@ function setActiveNavLink() {
     const links = document.querySelectorAll('#mainNav .nav-link');
     links.forEach(a => {
         const href = a.getAttribute('href');
-        const isActive = href === path || (href === 'home.html' && path === '');
+        const isActive = href === path || (href === 'index.html' && path === '');
         a.classList.toggle('active', isActive);
         if (isActive) {
             a.setAttribute('aria-current', 'page');
