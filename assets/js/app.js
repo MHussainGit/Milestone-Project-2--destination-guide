@@ -197,61 +197,68 @@ function setActiveNavLink() {
 
 function showCityResults(city) {
     const results = document.getElementById('results');
-    if (!results) return; // nothing to render if results container is missing
-    
+    if (!results) return; 
     results.innerHTML = '';
 
-    // create a map iframe embedding Google Maps; requires an API key for full functionality
-    // if the key isn't configured we show a warning and skip the map to avoid rendering a broken iframe
+    // Check API Key
     if (GMAP_API_KEY === 'YOUR_API_KEY' || !GMAP_API_KEY) {
         const warning = document.createElement('div');
         warning.className = 'alert alert-warning';
         warning.textContent = 'Google Maps API key is not set or invalid. Please configure a valid key in js/app.js';
         results.appendChild(warning);
-        // still display attraction links below, but don't attempt to embed a map
         renderAttractionList(city);
         return;
     }
 
     const iframe = document.createElement('iframe');
     iframe.referrerPolicy = 'no-referrer-when-downgrade';
-    // Note: Ensure this URL endpoint is valid for your API key restrictions
-    iframe.src = `https://www.google.com/maps/embed/v1/place?key=${GMAP_API_KEY}&q=${encodeURIComponent(city)}`;
+    
+    // CHANGED: Use '/search' instead of '/place' for general queries
+    iframe.src = `https://www.google.com/maps/embed/v1/search?key=${GMAP_API_KEY}&q=${encodeURIComponent(city)}`;
 
-    // wrap iframe in responsive container (Bootstrap 5 ratio) so it scales to screen size
     const wrapper = document.createElement('div');
     wrapper.className = 'ratio ratio-16x9';
     wrapper.appendChild(iframe);
     results.appendChild(wrapper);
 
-    // show the basic (mocked) attraction links below the map
     renderAttractionList(city);
 }
 
 function renderAttractionList(city) {
     const results = document.getElementById('results');
     if (!results) return;
+    
     const attractions = ['Restaurants', 'Parks', 'Historic Sites', 'Attractions', 'Hotels'];
     const ul = document.createElement('ul');
     ul.className = 'list-group mt-3';
+    
     attractions.forEach(item => {
         const li = document.createElement('li');
         li.className = 'list-group-item';
         const displayCity = baseCity || city;
+        
         const link = document.createElement('a');
         link.href = '#';
         link.textContent = `${item} in ${displayCity}`;
+        link.style.cursor = 'pointer';
+        
         link.addEventListener('click', (e) => {
             e.preventDefault();
             let query = city;
             const lower = city.toLowerCase();
+            
+            // Construct search query (e.g., "Paris Restaurants")
             if (!lower.includes(item.toLowerCase())) {
                 query = `${city} ${item}`;
             }
+            
+            // CHANGED: Update the embedded map instead of opening a new tab
             showCityResults(query);
         });
+        
         li.appendChild(link);
         ul.appendChild(li);
     });
+    
     results.appendChild(ul);
 }
