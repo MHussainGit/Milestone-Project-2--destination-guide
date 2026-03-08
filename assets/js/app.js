@@ -31,39 +31,39 @@ const BASE_PATH = window.location.hostname.includes("github.io")
 const sampleCities = [
     { 
         name: "Paris, France",
-        image: `${BASE_PATH}assets/images/paris.webp`
+        image: BASE_PATH + "assets/images/paris.webp"
     },
     { 
         name: "New York, USA",
-        image: `${BASE_PATH}assets/images/new-york.webp`
+        image: BASE_PATH + "assets/images/new-york.webp"
     },
     { 
         name: "Tokyo, Japan",
-        image: `${BASE_PATH}assets/images/tokyo.webp`
+        image: BASE_PATH + "assets/images/tokyo.webp"
     },
     { 
         name: "Barcelona, Spain",
-        image: `${BASE_PATH}assets/images/barcelona.webp`
+        image: BASE_PATH + "assets/images/barcelona.webp"
     },
     { 
         name: "Sydney, Australia",
-        image: `${BASE_PATH}assets/images/sydney.webp`
+        image: BASE_PATH + "assets/images/sydney.webp"
     },
     { 
         name: "Rome, Italy",
-        image: `${BASE_PATH}assets/images/rome.webp`
+        image: BASE_PATH + "assets/images/rome.webp"
     },
     { 
         name: "London, UK",
-        image: `${BASE_PATH}assets/images/london.webp`
+        image: BASE_PATH + "assets/images/london.webp"
     },
     { 
         name: "Rio de Janeiro, Brazil",
-        image: `${BASE_PATH}assets/images/rio-de-janeiro.webp`
+        image: BASE_PATH + "assets/images/rio-de-janeiro.webp"
     },
     { 
         name: "Madrid, Spain",
-        image: `${BASE_PATH}assets/images/madrid.webp`
+        image: BASE_PATH + "assets/images/madrid.webp"
     }
 ];
 
