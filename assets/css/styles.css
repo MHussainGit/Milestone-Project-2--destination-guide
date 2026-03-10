@@ -1,27 +1,79 @@
 /*
  * styles.css - custom styles for Destination Guide
- * ----------------------------------------------------
- * Contains typography, layout helpers, navbar, footer, and
- * results styling. Extends Bootstrap 5.3 defaults with a few
- * project-specific tweaks.
+ * Extends Bootstrap 5.3 defaults with a few project-specific tweaks.
  */
 
+/* Global Styles */
 body {
     font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero Section */
+#hero {
+    /* Try GitHub Pages absolute repo path first, then local relative fallback */
+    background-image: url('/Milestone-Project-2--art-portfolio/assets/images/Dubai.webp'), url('../images/Dubai.webp');
+    height: 100vh; 
+    width:100%;
+    position:relative;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
-main {
-    flex: 1 0 auto; /* allow main content to grow and push footer down */
+/* Cover Text Styles */
+#cover-text {
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,0.55);
+    padding: 30px;
+    border-radius: 10px;
 }
 
-#results {
-    margin-top: 1rem;
+#cover-text>h2,
+#cover-text>h3 {
+    color: #ffffff;
+    margin: 0.5rem 0;
+}
+#cover-text>h3 {
+    font-weight: normal;
+    font-size: 80%;
 }
 
-/* footer should be dark grey with white text */
+/* Search Form */
+#searchForm {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+#searchInput {
+    flex: 1;
+    min-width: 250px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+}
+
+#searchButton {
+    padding: 0 1rem;
+    font-size: 1rem;
+    border-radius: 0 5px 5px 0;
+    border: 1px solid #ccc; 
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+/* Results */
+
+/* Footer */
 footer {
     background-color: #343a40; /* bootstrap dark variant */
     color: #fff;
@@ -32,13 +84,13 @@ footer .container {
     text-align: center;
 }
 
+/* Destination Cards */
+
 .card-destination {
     cursor: pointer;
 }
 
-/* -----------------------------------------------------------------
-   Navbar typography & spacing
-   ----------------------------------------------------------------- */
+/* Navbar */
 
 .navbar-brand, .navbar-nav .nav-link {
     font-family: 'Roboto', sans-serif;

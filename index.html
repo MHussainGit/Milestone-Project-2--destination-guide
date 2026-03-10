@@ -40,23 +40,26 @@
     </header>
 
     <!-- Main content -->
-    <main class="container my-5">
-        <h1>Welcome to Destination Guide</h1>
-        <p>Search your next holiday destination to explore attractions, accommodation and historic sites.</p>
-        <!-- search form -->
-        <form id="searchForm" class="row g-3" autocomplete="off">
-            <div class="col-auto">
-                <label for="cityInput" class="visually-hidden">City</label>
-                <input list="citySuggestions" type="text" class="form-control" id="cityInput" placeholder="Search a City/Country">
-                <datalist id="citySuggestions">
-                    <!-- suggestions populated by JS -->
-                </datalist>
+    <main class="container-fluid p-0">
+        <section id="hero">
+            <div id="cover-text">
+                <h2>Welcome to Destination Guide</h2>
+                <h3>Search your next holiday destination to explore attractions, accommodation and historic sites</h3>
+                <!-- Search Form -->
+                <form id="searchForm" class="row g-3" autocomplete="off">
+                    <div class="col-auto">
+                        <label for="cityInput" class="visually-hidden">City</label>
+                        <input list="citySuggestions" type="text" class="form-control" id="cityInput" placeholder="Search a City/Country">
+                        <datalist id="citySuggestions">
+                            <!-- suggestions populated by JS -->
+                        </datalist>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">Search</button>
-            </div>
-        </form>
-
+        </section>
         <div id="results"></div>
     </main>
 

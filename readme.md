@@ -2,6 +2,10 @@
 
 A website designed to help people search for landmarks, attractions, restuarants and other points of interests in destinations they are travelling to. The website is built using HTML and CSS but will incorporate Javascript to make the website interactive.  
 
+## Project Overview
+
+
+
 ## User Stories
 
 1. **As a traveler**, I want to be able to search a city and have a map be visible with suggestions available for local attractions so that I can build an iterinary for my trip.
@@ -9,8 +13,8 @@ A website designed to help people search for landmarks, attractions, restuarants
 3. **As a mobile user**, I want the site to be fast and adpative so that it looks and performs well on smaller screens such as phones and tablets.
 4. **As a developer**, I want the documentation to be structured in a cohesive manner so that I can understand the structure of the project and I want the code to be labelled clearly so that I can update it easily if needed.
 
-
 ## Wireframes
+
 The website wireframes were created using Balsamiq and are available in the following formats:
 
 **Desktop Wireframes:**
@@ -21,8 +25,6 @@ The website wireframes were created using Balsamiq and are available in the foll
 - [Mobile -Home](assets/images/Mobile%20-%20Home%20.png)
 - [Mobile - Popular Destinations](assets/images/Mobile%20-%20Popular%20Destinations.png)
 
-## Project Overview
-
 ## Features
 
 - Two pages: Home and Popular Destinations
@@ -32,8 +34,7 @@ The website wireframes were created using Balsamiq and are available in the foll
 - Suggestions list present under the map once a search is completed for easy access to exploring different types of attractions and locations in a city
 - A responsive layout built with Bootstrap 5.3 which ensures it is compatible with mobile, tablet and desktops
 - Compatible with Github Pages
-- Google Fonts implented as the typography across the site 
-
+- Google Fonts (Roboto) implented as the typography across the site 
 
 ## Getting Started
 
@@ -46,6 +47,7 @@ The website wireframes were created using Balsamiq and are available in the foll
 ## Sources
 
 ### Images
+
 https://www.freepik.com/free-photo/beautiful-view-empire-states-skyscrapers-new-york-city_8857815.htm#fromView=search&page=1&position=1&uuid=3405d851-2970-4435-8f79-6e3041983651&query=new+york
 
 https://www.freepik.com/free-photo/cityscape-paris-sunlight-blue-sky-fra_17753899.htm#fromView=search&page=1&position=0&uuid=6a58664a-3c17-49be-846d-16544525d8ee&query=paris
