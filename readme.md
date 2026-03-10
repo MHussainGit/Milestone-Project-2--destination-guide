@@ -25,6 +25,16 @@ The website wireframes were created using Balsamiq and are available in the foll
 
 ## Features
 
+- Two pages: Home and Popular Destinations
+- Consistent navigation bar and footer across both pages
+- Search box on the home page with popular destination suggestions dropdown built into it as well as the ability to search other cities/countries
+- Map API implemented on the home page to display Google Maps when a destination is searched
+- Suggestions list present under the map once a search is completed for easy access to exploring different types of attractions and locations in a city
+- A responsive layout built with Bootstrap 5.3 which ensures it is compatible with mobile, tablet and desktops
+- Compatible with Github Pages
+- Google Fonts implented as the typography across the site 
+
+
 ## Getting Started
 
 ## Technology Stack

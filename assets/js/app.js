@@ -1,15 +1,10 @@
 ﻿/*
-app.js - custom JavaScript for Holiday Finder
-Manages search behavior, destination cards, navbar highlighting,
-Google Maps embedding, and other interactive features.
-Attribution: basic DOM manipulation patterns adapted from MDN docs.
+app.js - A custom JavaScript for Destination Guide
+It manages the behaviour of the search bar, makes the destination cards interactive, 
+handles highlighting the navbar as well as embedding Google Maps on the home page.
 */
 
-// -----------------------------------------------------------------------------
-// Utility helpers
-// -----------------------------------------------------------------------------
-
-// populate a datalist element with suggestion options
+// Populate a datalist element with suggestion options
 function populateSuggestions(list) {
     const data = document.getElementById('citySuggestions');
     if (!data) return;
@@ -21,12 +16,11 @@ function populateSuggestions(list) {
     });
 }
 
-// Dynamically determine base path for GitHub Pages
-// This avoids hardcoding the repo name which causes broken links if the repo changes
+// Dynamically determines the base path for GitHub Pages
+// This is to avoid hardcoding the repo name which causes links to become broken if the repo changes
 const getBasePath = () => {
     if (window.location.hostname.includes('github.io')) {
         const path = window.location.pathname;
-        // Expecting /repo-name/ or /repo-name/index.html
         const parts = path.split('/').filter(part => part.length > 0);
         if (parts.length > 0) {
             return '/' + parts[0] + '/';
@@ -37,8 +31,7 @@ const getBasePath = () => {
 
 const BASE_PATH = getBasePath();
 
-// Shared list of example cities used for both destinations and autocomplete
-// FIXED: Removed trailing spaces in names and image paths
+// Shared list of example cities used for both destination cards and the search bar dropdown menu
 const sampleCities = [
     {
         name: "Paris, France",
@@ -82,11 +75,9 @@ const sampleCities = [
 let baseCity = '';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // header and footer markup is now included directly in the HTML files
-    // just run the nav highlighting helper once the DOM is ready
     setActiveNavLink();
 
-    // auto-hide mobile navbar after clicking a link (uses Bootstrap's collapse)
+    // Auto-hide mobile navbar after clicking a link (uses Bootstrap's collapse)
     const navLinks = document.querySelectorAll('.navbar-collapse .nav-link');
     if (navLinks.length) {
         navLinks.forEach(link => {
@@ -103,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // populate suggestions every load (works even if #citySuggestions not present)
+    // Populate suggestions every load (works even if #citySuggestions not present)
     populateSuggestions(sampleCities.map(city => city.name));
 
     const searchForm = document.getElementById('searchForm');
@@ -115,19 +106,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Please Enter a City/Country Name');
                 return;
             }
-            // when the user types/searches manually, treat this as the new base city
+            // When the user types/searches manually, treat this as the new base city
             baseCity = city;
             showCityResults(city);
         });
     }
 
-    // If on destinations page, populate list
+    // If on destinations page, populate the cards with sample cities
     const destList = document.getElementById('destList');
     if (destList) {
-        // also populate datalist for autocomplete
+        // Also populate datalist for search bar suggestions
         populateSuggestions(sampleCities.map(c => c.name));
         
-        // FIXED: Syntax error corrected (city => instead of city = >)
         sampleCities.forEach(city => {
             const col = document.createElement('div');
             col.className = 'col-md-4 mb-4';
@@ -135,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const card = document.createElement('div');
             card.className = 'card card-destination h-100';
 
-            // FIXED: Removed trailing spaces in src and alt attributes
             card.innerHTML = `
                 <img src="${city.image}" class="card-img-top" alt="${city.name}">
                 <div class="card-body d-flex flex-column">
@@ -147,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
 
             const button = card.querySelector('.search-btn');
-            // FIXED: Syntax error corrected (() => instead of () = >)
             button.addEventListener('click', () => {
                 window.location.href = `index.html?city=${encodeURIComponent(city.name)}`;
             });
@@ -157,29 +145,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // If index page with query param, automatically search
     const params = new URLSearchParams(window.location.search);
     if (params.has('city')) {
         const cityName = params.get('city');
         const cityInput = document.getElementById('cityInput');
         if(cityInput) {
             cityInput.value = cityName;
-            baseCity = cityName; // initialize base for link text
+            baseCity = cityName; 
             showCityResults(cityName);
         }
     }
 });
 
-// NOTE: Insert your Google Maps API key here. 
+// NOTE: Insert your Google Maps API key here
 // SECURITY WARNING: Exposing API keys in client-side JS is risky. 
-// Restrict this key in Google Cloud Console to your specific domain (HTTP Referrer).
+// For this project I have restricted the functionality to only accesssing the Maps API in the Google Cloud Console
 const GMAP_API_KEY = 'AIzaSyBt7x_-AgQk4-R38JyMX6Y7RCMnZYqzBpE';
 
-// -----------------------------------------------------------------------------
-// Navigation helpers
-// -----------------------------------------------------------------------------
-
-// highlight active nav link based on current path
+// Highlight active nav link based on current path
 function setActiveNavLink() {
     const path = window.location.pathname.split('/').pop();
     const links = document.querySelectorAll('#mainNav .nav-link');
@@ -213,7 +196,6 @@ function showCityResults(city) {
     const iframe = document.createElement('iframe');
     iframe.referrerPolicy = 'no-referrer-when-downgrade';
     
-    // CHANGED: Use '/search' instead of '/place' for general queries
     iframe.src = `https://www.google.com/maps/embed/v1/search?key=${GMAP_API_KEY}&q=${encodeURIComponent(city)}`;
 
     const wrapper = document.createElement('div');
@@ -247,12 +229,10 @@ function renderAttractionList(city) {
             let query = city;
             const lower = city.toLowerCase();
             
-            // Construct search query (e.g., "Paris Restaurants")
             if (!lower.includes(item.toLowerCase())) {
                 query = `${city} ${item}`;
             }
             
-            // CHANGED: Update the embedded map instead of opening a new tab
             showCityResults(query);
         });
         
