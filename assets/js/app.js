@@ -157,6 +157,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Dynamically hides the hero image and shifts the search bar to the top when a search is performed
+const searchForm = document.getElementById('searchForm');
+const hero = document.getElementById('hero');
+const coverText = document.getElementById('cover-text');
+const topContainer = document.getElementById('topSearchContainer');
+
+searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = document.getElementById('cityInput').value.trim();
+    if (!query) {
+        alert('Please Enter a City/Country Name');
+        return;
+    }
+
+    // Fade Out and move up the search bar
+    coverText.classList.add('hero-hidden');
+    setTimeout(() => {
+        hero.style.display = 'none';
+        topContainer.appendChild(searchForm);
+        topContainer.classList.add('visible');
+        searchForm.style.display  = 'flex';
+        results.style.display = 'block';
+        results.innerHTML = '<h2>Showing results for "${query}"</h2>';
+        setTimeout(() => {
+            results.classList.add('visible');
+        }, 50);
+    }, 500);        
+});
+
 // NOTE: Insert your Google Maps API key here
 // SECURITY WARNING: Exposing API keys in client-side JS is risky. 
 // For this project I have restricted the functionality to only accesssing the Maps API in the Google Cloud Console
