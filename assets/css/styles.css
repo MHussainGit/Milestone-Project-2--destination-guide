@@ -84,6 +84,13 @@ footer .container {
     text-align: center;
 }
 
+/* Destination text */
+#destinations-heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
 /* Destination Cards */
 
 .card-destination {
