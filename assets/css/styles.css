@@ -73,44 +73,6 @@ body {
 
 /* Results */
 
-.hero-hidden #cover-text {
-    opacity: 0;
-    transform: translateY(-50px)
-}
-
-#topSearchContainer {
-    display: flex;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(-50px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-#topSearchContainer.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#topSearchContainer form {
-    display: flex;
-    gap: 0.5rem;
-}
-
-#results {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    margin-top: 1rem;
-}
-
-#results.visible {
-    opacity: 1;
-}
-#results h2{
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-}
-
-
 /* Footer */
 footer {
     background-color: #343a40; /* bootstrap dark variant */
@@ -135,8 +97,7 @@ footer .container {
     font-weight: 500;
 }
 
-/* Uniform Font Sizes and Spacing in Navbar */
-
+/* uniform font sizes and spacing in navbar */
 .navbar-brand {
     font-size: 1.5rem; /* larger brand title */
 }
@@ -146,8 +107,7 @@ footer .container {
     padding-right: .75rem;
 }
 
-/* Make Active Link Visually Distinct */
-
+/* make active link visually distinct */
 .navbar-nav .nav-link {
     transition: color 0.3s, text-decoration-color 0.3s;
 }
