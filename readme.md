@@ -135,6 +135,19 @@ The site was tested on:
 - Microsoft Edge
 - Brave Browser
 
+### HTML Validation
+
+#### HTML Files:
+[Index HTML - Validator Result](assets/validation/index-html-validator.png)
+[Destinations HTML - Validator Result](assets/validation/destinations-html-validator.png)
+
+### CSS Validation
+
+#### CSS:
+[Styles CSS Search Entry 1/2](assets/validation/css-validator-1.png)
+[Styles CSS Search Entry 2/2](assets/validation/css-validator-2.png)
+[Styles CSS - Validator Result](assets/validation/css-validator-pass.png)
+
 ### Responsive Testing
 
 The website was tested across different screen sizes via:
