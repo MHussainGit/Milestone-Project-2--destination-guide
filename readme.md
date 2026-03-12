@@ -159,6 +159,10 @@ https://developers.google.com/maps/documentation/embed
 
 ### Images
 
+Favicon
+
+- https://www.flaticon.com/free-icon/travel_826070?term=travel&page=1&position=1&origin=search&related_id=826070
+
 Free stock photos sourced from Freepik:
 
 - https://www.freepik.com/free-photo/beautiful-view-empire-states-skyscrapers-new-york-city_8857815.htm#fromView=search&page=1&position=1&uuid=3405d851-2970-4435-8f79-6e3041983651&query=new+york
