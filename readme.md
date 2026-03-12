@@ -42,6 +42,7 @@ The website wireframes were created using Balsamiq and are available in the foll
 - A responsive layout built with Bootstrap 5.3 which ensures it is compatible with mobile, tablet and desktops
 - Compatible with Github Pages
 - Google Fonts (Roboto) implented as the typography across the site 
+- The JavaScript includes a dynamic base path detection system, allowing the project to work correctly on GitHub Pages without hardcoding the repository name.
 
 ## Getting Started
 
@@ -78,7 +79,16 @@ Tools:
 - Balsamiq (wireframes)
 
 Typography:
--Google Fonts – Roboto
+- Google Fonts – Roboto
+
+## Accessibility
+
+Accessinility optimisations include:
+- Semantic HTML structure
+- Accessible navigation elements
+- Descriptive alt text for images
+- High contrast betweem text and background
+- Keyboard accessible navigation
 
 ## Deployment
 
@@ -93,10 +103,20 @@ Deployment Steps:
 
 The site will be available at:
 ```
-https://mhussaingit.github.io/Milestone-Project-2--destination-guide/
+https://username.github.io/repository-name/
 ```
 
 ## Testing
+
+### Manual Testing
+
+| Feature | Test | Result |
+|--------|------|--------|
+| Navigation links | Click each link | Correct page loads |
+| Search bar | Enter city names | Map loads correct location |
+| Destination cards | Click search button | Redirect works correctly |
+| Mobile navigation | Expand/collapse menu | Works correctly |
+| Attraction links | Click attraction type | Map query updates |
 
 ## Sources
 
