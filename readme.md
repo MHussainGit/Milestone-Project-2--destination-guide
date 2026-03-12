@@ -21,6 +21,8 @@ The target users for this project include:
 - Users looking for inspiration for holiday destinations
 - Mobile users that want a resource to explore cities they're travelling in
 
+The site aims to deliver users quick access to destination information via a simple and intuitive interface
+
 ## User Stories
 
 1. **As a traveler**, I want to be able to search a city and have a map be visible with suggestions available for local attractions so that I can build an iterinary for my trip.
@@ -176,11 +178,9 @@ A dynamic base path detection function was implemented which ensures the site wo
 
 ## Future Improvements
 
-### Future Improvements
-
 Potential improvements include:
 - Adding travel APIs such as TripAdvisor, GeoDB, or OpenTripMap
-- Displaying multiple attraction markers on the map
+- Displaying multiple types of attraction markers on the map at the same time
 - Allowing users to save favourite destinations
 - Adding weather data for searched cities
 
