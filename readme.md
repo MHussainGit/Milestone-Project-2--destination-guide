@@ -53,7 +53,7 @@ git clone https://github.com/MHussainGit/Milestone-Project-2--destination-guide
 ```
 2. Navigate to the project folder:
 ```
-cd destination-guide
+cd Milestone-Project-2--destination-guide
 ```
 3. Open index.html in a web browser
 No additional installation steps are required. 
@@ -118,7 +118,44 @@ https://username.github.io/repository-name/
 | Mobile navigation | Expand/collapse menu | Works correctly |
 | Attraction links | Click attraction type | Map query updates |
 
+### Browser Testing
+
+The site was tested on:
+- Google Chrome
+- Microsoft Edge
+- Brave Browser
+
+### Responsive Testing
+
+The website was tested across different screen sizes via:
+- Chrome Developer Tools
+- Mobile Phone/Tablet
+- Viewport Simulations
+
+## Performance
+
+Website optimisations include:
+- Utilised WEBP image format for faster loading
+- Minimised Javascript dependencies 
+- Utilised Bootstrap CDN for faster asset delivery
+- Responsive image scaling
+
+## Known Bugs
+
 ## Sources
+
+### Libraries and Frameworks
+
+- Bootstrap – https://getbootstrap.com
+
+- Google Fonts – https://fonts.google.com
+
+- MDN Web Docs (HTML, CSS, JavaScript) - https://developer.mozilla.org/
+
+### APIs
+
+- Google Maps Embed API
+https://developers.google.com/maps/documentation/embed
 
 ### Images
 
@@ -144,15 +181,3 @@ Free stock photos sourced from Freepik:
 
 - https://www.freepik.com/free-photo/modetn-city-luxury-center-dubai-united-arab-emirates_10824303.htm#fromView=search&page=1&position=3&uuid=d771a197-b840-4c80-9b69-bbf62b3eae07&query=dubai
 
-### Libraries and Frameworks
-
-- Bootstrap – https://getbootstrap.com
-
-- Google Fonts – https://fonts.google.com
-
-- MDN Web Docs (HTML, CSS, JavaScript) - https://developer.mozilla.org/
-
-### APIs
-
-- Google Maps Embed API
-https://developers.google.com/maps/documentation/embed
