@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
                loading="lazy"
                decoding="async"
                width="600"
-               height="400"
+               height="200"
             >
             <div class="card-body d-flex flex-column">
                  <h5 class="card-title text-center">${city.name}</h5>
