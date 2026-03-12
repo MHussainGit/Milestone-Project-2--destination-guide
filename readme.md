@@ -13,6 +13,14 @@ Key focal points:
 - Integrated third-party Maps API
 - Clean and easily legible code structure
 
+## User Experience (UX)
+
+### Strategy
+The target users for this project include:
+- Travellers planning a trip
+- Users looking for inspiration for holiday destinations
+- Mobile users that want a resource to explore cities they're travelling in
+
 ## User Stories
 
 1. **As a traveler**, I want to be able to search a city and have a map be visible with suggestions available for local attractions so that I can build an iterinary for my trip.
@@ -166,6 +174,16 @@ Hardcoded paths can break when deploying projects through GitHub Pages because r
 #### Resolution
 A dynamic base path detection function was implemented which ensures the site works both locally and when deployed.
 
+## Future Improvements
+
+### Future Improvements
+
+Potential improvements include:
+- Adding travel APIs such as TripAdvisor, GeoDB, or OpenTripMap
+- Displaying multiple attraction markers on the map
+- Allowing users to save favourite destinations
+- Adding weather data for searched cities
+
 ## Sources
 
 ### Libraries and Frameworks
@@ -178,8 +196,7 @@ A dynamic base path detection function was implemented which ensures the site wo
 
 ### APIs
 
-- Google Maps Embed API
-https://developers.google.com/maps/documentation/embed
+- Google Maps Embed API - https://developers.google.com/maps/documentation/embed
 
 ### Images
 
