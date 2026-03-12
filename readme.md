@@ -142,6 +142,30 @@ Website optimisations include:
 
 ## Known Bugs
 
+### Bug 1 - Google Maps API Key Exposure
+
+#### Issue
+The Google Maps API key is stored in the client side JavaScript file and therefore it can be viewed by users who inspect the page.
+
+#### Resolution
+To prevent the unauthorised use of the API key to call upon other Google services I have restricted it to only allow its use with the Google Maps Embed API.
+
+### Bug 2 - Empty Search Bar Submission
+
+#### Issue
+Users were able to submit a search without typing into the search box.
+
+#### Resolution
+Added a validation check into the script so that empty searches are prevented and added a message to pop up in the browser to remind the user to type into the box.
+
+### Bug 3 - GitHub Pages Path Issues
+
+#### Issue
+Hardcoded paths can break when deploying projects through GitHub Pages because repositories use a subdirectory.
+
+#### Resolution
+A dynamic base path detection function was implemented which ensures the site works both locally and when deployed.
+
 ## Sources
 
 ### Libraries and Frameworks
