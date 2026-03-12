@@ -35,39 +35,48 @@ const BASE_PATH = getBasePath();
 const sampleCities = [
     {
         name: "Paris, France",
-        image: BASE_PATH + "assets/images/Paris.webp"
+        image: BASE_PATH + "assets/images/Paris.webp",
+        alt: "Eiffel Tower and skyline in Paris, France"
     },
     {
         name: "New York, USA",
-        image: BASE_PATH + "assets/images/New-York.webp"
+        image: BASE_PATH + "assets/images/New-York.webp",
+        alt: "Skyline of New York City with skyscrapers"
     },
     {
         name: "Tokyo, Japan",
-        image: BASE_PATH + "assets/images/Tokyo.webp"
+        image: BASE_PATH + "assets/images/Tokyo.webp",
+        alt: "Tokyo city skyline with illuminated buildings"
     },
     {
         name: "Barcelona, Spain",
-        image: BASE_PATH + "assets/images/Barcelona.webp"
+        image: BASE_PATH + "assets/images/Barcelona.webp",
+        alt: "View of Barcelona featuring Sagrada Familia"
     },
     {
         name: "Sydney, Australia",
-        image: BASE_PATH + "assets/images/Sydney.webp"
+        image: BASE_PATH + "assets/images/Sydney.webp",
+        alt: "Sydney Opera House and harbour skyline"
     },
     {
         name: "Rome, Italy",
-        image: BASE_PATH + "assets/images/Rome.webp"
+        image: BASE_PATH + "assets/images/Rome.webp",
+        alt: "The Colosseum in Rome, Italy"
     },
     {
         name: "London, UK",
-        image: BASE_PATH + "assets/images/London.webp"
+        image: BASE_PATH + "assets/images/London.webp",
+        alt: "London skyline with Big Ben and the River Thames"
     },
     {
         name: "Rio de Janeiro, Brazil",
-        image: BASE_PATH + "assets/images/Rio-de-Janeiro.webp"
+        image: BASE_PATH + "assets/images/Rio-de-Janeiro.webp",
+        alt: "Christ the Redeemer statue overlooking Rio de Janeiro"
     },
     {
         name: "Madrid, Spain",
-        image: BASE_PATH + "assets/images/Madrid.webp"
+        image: BASE_PATH + "assets/images/Madrid.webp",
+        alt: "Cityscape of Madrid, Spain"
     }
 ];
 
@@ -126,14 +135,22 @@ document.addEventListener('DOMContentLoaded', function() {
             card.className = 'card card-destination h-100';
 
             card.innerHTML = `
-                <img src="${city.image}" class="card-img-top" alt="${city.name}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-center">${city.name}</h5>
-                    <button class="btn btn-primary mt-auto search-btn">
-                        Search
-                    </button>
-                </div>
-            `;
+            <img 
+               src="${city.image}" 
+               class="card-img-top"
+               alt="${city.alt}"
+               loading="lazy"
+               decoding="async"
+               width="600"
+               height="400"
+            >
+            <div class="card-body d-flex flex-column">
+                 <h5 class="card-title text-center">${city.name}</h5>
+                <button class="btn btn-primary mt-auto search-btn">
+                   Search
+                </button>
+            </div>
+        `;
 
             const button = card.querySelector('.search-btn');
             button.addEventListener('click', () => {

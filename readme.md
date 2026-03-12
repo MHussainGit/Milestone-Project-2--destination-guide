@@ -4,7 +4,14 @@ A website designed to help people search for landmarks, attractions, restuarants
 
 ## Project Overview
 
+The goal of the Destination Guide website is to provide its users a simple to navigate interface to search a city or country and also the ability to view popular attractions on a map. The website offers a reccommendations page for users to explore called Popular Destinations which will give them easy access to search popular locales across the World.
 
+Key focal points:
+- A simple, clean website design
+- Intuitive navigation elements 
+- Interactive Search Functionaality
+- Integrated third-party Maps API
+- Clean and easily legible code structure
 
 ## User Stories
 
