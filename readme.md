@@ -2,6 +2,33 @@
 
 A website designed to help people search for landmarks, attractions, restuarants and other points of interests in destinations they are travelling to. The website is built using HTML and CSS but will incorporate Javascript to make the website interactive.  
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [User Experience (UX)](#user-experience-ux)
+  - [Strategy](#strategy)
+  - [Design Rationale](#design-rationale)
+  - [Accessibility Considerations](#accessibility-considerations)
+- [User Stories](#user-stories)
+- [Skeleton](#skeleton)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Technology Stack](#technology-stack)
+- [Accessibility](#accessibility)
+- [Deployment](#deployment)
+- [Validation](#validation)
+  - [HTML Validation](#html-validation)
+  - [CSS Validation](#css-validation)
+  - [JavaScript Validation](#javascript-validation)
+- [Testing](#testing)
+  - [Manual Testing](#manual-testing)
+  - [User Story Verification](#user-story-verification)
+  - [Responsive Design Testing](#responsive-design-testing)
+  - [Deployment Verification Checklist](#deployment-verification-checklist)
+- [Testing Artifacts](#testing-artifacts)
+- [Future Improvements](#future-improvements)
+- [Sources](#sources)
+
 ## Project Overview
 
 The goal of the Destination Guide website is to provide its users a simple to navigate interface to search a city or country and also the ability to view popular attractions on a map. The website offers a reccommendations page for users to explore called Popular Destinations which will give them easy access to search popular locales across the World.
