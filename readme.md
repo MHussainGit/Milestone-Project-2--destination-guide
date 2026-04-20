@@ -96,12 +96,6 @@ The website wireframes were created using Balsamiq and can be viewed below.
 #### Design layout for the desktop version of the popular destinations page
 #### ![Desktop - Popular Destinations](<assets/images/Desktop - Popular Destinations.png>)
 
-### Tablet Wireframes:
-#### Design layout for the tablet version of the home page
-#### ![Tablet - Home](<assets/images/Tablet - Home.png>)
-#### Design layout for the tablet version of the popular destinations page
-#### ![Tablet - Popular Destinations](<assets/images/Tablet - Popular Destinations.png>)
-
 ### Mobile Wireframes:
 #### Design layout for the mobile version of the home page
 #### ![Mobile - Home](<assets/images/Mobile - Home.png>)
