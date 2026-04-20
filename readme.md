@@ -98,7 +98,7 @@ The website wireframes were created using Balsamiq and can be viewed below.
 
 ### Mobile Wireframes:
 #### Design layout for the mobile version of the home page
-#### ![Mobile - Home](<assets/images/Mobile - Home .png>)
+#### ![Mobile - Home ](<assets/images/Mobile - Home .png>)
 #### Design layout for the mobile version of the popular destinations page
 #### ![Mobile - Popular Destinations](<assets/images/Mobile - Popular Destinations.png>)
 
