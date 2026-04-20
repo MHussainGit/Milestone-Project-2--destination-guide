@@ -88,15 +88,25 @@ The Destination Guide addresses the needs of travelers who require quick, intuit
 
 ## Skeleton
 
-The website wireframes were created using Balsamiq and are available in the following formats:
+The website wireframes were created using Balsamiq and can be viewed below.
 
-**Desktop Wireframes:**
-- [Desktop - Home](assets/images/Desktop%20-%20Home.png)
-- [Desktop - Popular Destinations](assets/images/Desktop%20-%20Popular%20Destinations.png)
+### Desktop Wireframes:
+#### Design layout for the desktop version of the home page
+#### ![Desktop - Home](<assets/images/Desktop - Home.png>)
+#### Design layout for the desktop version of the popular destinations page
+#### ![Desktop - Popular Destinations](<assets/images/Desktop - Popular Destinations.png>)
 
-**Mobile Wireframes:**
-- [Mobile -Home](assets/images/Mobile%20-%20Home%20.png)
-- [Mobile - Popular Destinations](assets/images/Mobile%20-%20Popular%20Destinations.png)
+### Tablet Wireframes:
+#### Design layout for the tablet version of the home page
+#### ![Tablet - Home](<assets/images/Tablet - Home.png>)
+#### Design layout for the tablet version of the popular destinations page
+#### ![Tablet - Popular Destinations](<assets/images/Tablet - Popular Destinations.png>)
+
+### Mobile Wireframes:
+#### Design layout for the mobile version of the home page
+#### ![Mobile - Home](<assets/images/Mobile - Home.png>)
+#### Design layout for the mobile version of the popular destinations page
+#### ![Mobile - Popular Destinations](<assets/images/Mobile - Popular Destinations.png>)
 
 ## Features
 
