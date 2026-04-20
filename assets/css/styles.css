@@ -114,6 +114,11 @@ body {
     color: #ffffff;
 }
 
+/* Form text styling */
+.form-text {
+    color: #ffffff !important;
+}
+
 /* Destination text */
 #destinations-heading {
     font-size: clamp(1.5rem, 5vw, 2rem);
