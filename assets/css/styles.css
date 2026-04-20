@@ -45,12 +45,22 @@ body {
     background: var(--overlay-bg);
     padding: 30px;
     border-radius: 10px;
+    max-width: 90vw;
     max-width: 700px;
+}
+
+#cover-text h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin: 0.5rem 0;
 }
 
 #cover-text h2,
 #cover-text h3 {
     margin: 0.5rem 0;
+}
+
+#cover-text h2 {
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
 }
 
 #cover-text h3 {
@@ -87,7 +97,7 @@ body {
 
 #cityInput {
     flex: 1;
-    min-width: 200px;
+    min-width: 0;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -106,7 +116,7 @@ body {
 
 /* Destination text */
 #destinations-heading {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -160,18 +170,17 @@ footer .container {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+    #cover-text {
+        padding: 25px;
+        max-width: 85vw;
+    }
+}
 
+@media (max-width: 768px) {
     #cover-text {
         padding: 20px;
-    }
-
-    #cover-text h1 {
-        font-size: 1.8rem;
-    }
-
-    #cover-text h2 {
-        font-size: 1rem;
+        max-width: 90vw;
     }
 
     #search-controls {
@@ -185,5 +194,37 @@ footer .container {
     #searchForm .btn {
         width: 100%;
         border-radius: var(--border-radius);
+    }
+}
+
+@media (max-width: 480px) {
+    #cover-text {
+        padding: 15px;
+        max-width: 95vw;
+    }
+
+    #cover-text h1 {
+        font-size: 1.3rem;
+    }
+
+    #cover-text h2 {
+        font-size: 0.85rem;
+    }
+
+    #searchForm {
+        margin: 0.75rem auto 0 auto;
+    }
+
+    #search-input-wrapper label {
+        font-size: 0.9rem;
+    }
+
+    #search-input-wrapper small {
+        font-size: 0.75rem;
+    }
+
+    #searchForm .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
     }
 }

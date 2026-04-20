@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         sampleCities.forEach(city => {
             const col = document.createElement('div');
-            col.className = 'col-md-4 mb-4';
+            col.className = 'col-12 col-sm-6 col-md-4 mb-4';
 
             const card = document.createElement('div');
             card.className = 'card card-destination h-100';
