@@ -259,16 +259,21 @@ The site was tested on:
 
 **Test Coverage:** 100% of core functionality across all browsers
 
-### HTML & CSS Validation
+## Validation
 
-#### HTML Validation Results
-- [Index HTML - Validator Result](assets/validation/index-html-validator.png) - ✓ Pass
-- [Destinations HTML - Validator Result](assets/validation/destinations-html-validator.png) - ✓ Pass
-- [404 HTML - Valid](404.html) - ✓ Pass (semantic HTML, accessibility compliant)
+### HTML Validation
+All HTML files were tested using the W3C Markup Validation Service:
+- index.html – No errors found
+#### ![Index - Validator Result](<assets/validation/index-html-validator.png>)
+- destinations.html – No errors found
+#### ![Destinations - Validator Result](<assets/validation/destinations-html-validator.png>)
+- 404.html – No errors found
+#### ![404 - Validator Result](<assets/validation/404-html-validator.png>)
 
-#### CSS Validation Results
-- [Styles CSS - Validator Result](assets/validation/css-validator-pass.png) - ✓ Pass
-- No CSS warnings or errors
+
+### CSS Validation
+The CSS stylesheet was tested using the W3C Jigsaw CSS Validator and returned no errors.
+#### ![CSS - Validator Result](<assets/validation/css-validator-pass.png>)
 
 ### Responsive Design Testing
 
