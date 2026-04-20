@@ -120,7 +120,7 @@ The website wireframes were created using Balsamiq and can be viewed below.
 #### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-2.png>)
 #### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-3.png>)
 ### 404 Error Page
-#### ![Desktop - 404 Error Page](<assets/images/Desktop-Screenshot-404error.png>)
+#### ![Desktop - 404 Error Page](<assets/images/Desktop-Screenshot-404Error.png>)
 
 ## Features
 
