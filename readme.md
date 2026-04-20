@@ -11,6 +11,7 @@ A website designed to help people search for landmarks, attractions, restuarants
   - [Accessibility Considerations](#accessibility-considerations)
 - [User Stories](#user-stories)
 - [Skeleton](#skeleton)
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Technology Stack](#technology-stack)
@@ -101,6 +102,25 @@ The website wireframes were created using Balsamiq and can be viewed below.
 #### ![Mobile - Home](<assets/images/Mobile - Home.png>)
 #### Design layout for the mobile version of the popular destinations page
 #### ![Mobile - Popular Destinations](<assets/images/Mobile - Popular Destinations.png>)
+
+## Screenshots
+
+### Home Page
+#### ![Desktop - Home Page](<assets/images/Desktop-Screenshot-Home.png>)
+### Search Bar Dropdown Menu
+#### ![Desktop - Search Bar Dropdown Menu](<assets/images/Desktop-Screenshot-Home-PopularDestinationsMenu.png>)
+### Home Page - Map
+#### ![Desktop - Home Page Map](<assets/images/Desktop-Screenshot-Home-Map.png>)
+### Home Page - Attraction Suggestions
+#### ![Desktop - Home Page - Location Suggestions](<assets/images/Desktop-Screenshot-Home-LocationSuggestionList.png>)
+### Home Page - Footer
+#### ![Desktop - Home Page Footer](<assets/images/Desktop-Screenshot-Home-Footer.png>)
+### Popular Destinations Page
+#### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-1.png>)
+#### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-2.png>)
+#### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-3.png>)
+### 404 Error Page
+#### ![Desktop - 404 Error Page](<assets/images/Desktop-Screenshot-404error.png>)
 
 ## Features
 
