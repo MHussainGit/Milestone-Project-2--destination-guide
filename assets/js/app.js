@@ -83,6 +83,31 @@ const sampleCities = [
 // baseCity is used to keep track of the original city the user searched for
 let baseCity = '';
 
+/**
+ * Load recent searches from localStorage
+ * @returns {Array} Array of recent city searches
+ */
+function getRecentSearches() {
+    const stored = localStorage.getItem('recentSearches');
+    return stored ? JSON.parse(stored) : [];
+}
+
+/**
+ * Save a search to recent searches (max 5 items)
+ * @param {string} city - City name to save
+ */
+function saveRecentSearch(city) {
+    if (!city) return;
+    let recent = getRecentSearches();
+    // Remove if already exists to avoid duplicates
+    recent = recent.filter(c => c !== city);
+    // Add to beginning
+    recent.unshift(city);
+    // Keep only last 5
+    recent = recent.slice(0, 5);
+    localStorage.setItem('recentSearches', JSON.stringify(recent));
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     setActiveNavLink();
 
@@ -198,13 +223,24 @@ function setActiveNavLink() {
 function showCityResults(city) {
     const results = document.getElementById('results');
     if (!results) return; 
-    results.innerHTML = '';
+    
+    // Show loading state
+    results.innerHTML = `
+        <div class="alert alert-info d-flex align-items-center" role="status">
+            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+            <span>Loading map and attractions for ${city}...</span>
+        </div>
+    `;
+
+    // Save to recent searches
+    saveRecentSearch(city);
 
     // Check API Key
     if (GMAP_API_KEY === 'YOUR_API_KEY' || !GMAP_API_KEY) {
+        results.innerHTML = '';
         const warning = document.createElement('div');
         warning.className = 'alert alert-warning';
-        warning.textContent = 'Google Maps API key is not set or invalid. Please configure a valid key in js/app.js';
+        warning.innerHTML = '<strong>Configuration Note:</strong> Google Maps API key is not set or invalid. Please configure a valid key in assets/js/app.js to display maps.';
         results.appendChild(warning);
         renderAttractionList(city);
         
@@ -212,18 +248,58 @@ function showCityResults(city) {
         return;
     }
 
-    const iframe = document.createElement('iframe');
-    iframe.referrerPolicy = 'no-referrer-when-downgrade';
-    iframe.src = `https://www.google.com/maps/embed/v1/search?key=${GMAP_API_KEY}&q=${encodeURIComponent(city)}`;
+    try {
+        // Clear previous content and create map container
+        results.innerHTML = '';
+        
+        const mapContainer = document.createElement('div');
+        mapContainer.className = 'ratio ratio-16x9 mb-3';
+        mapContainer.id = 'map-container';
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'ratio ratio-16x9';
-    wrapper.appendChild(iframe);
-    results.appendChild(wrapper);
+        const iframe = document.createElement('iframe');
+        iframe.referrerPolicy = 'no-referrer-when-downgrade';
+        iframe.title = `Google Map showing ${city}`;
+        iframe.src = `https://www.google.com/maps/embed/v1/search?key=${GMAP_API_KEY}&q=${encodeURIComponent(city)}`;
+        
+        // Add error handling for iframe
+        iframe.onerror = () => {
+            handleMapError(results, city);
+        };
 
+        mapContainer.appendChild(iframe);
+        results.appendChild(mapContainer);
+
+        renderAttractionList(city);
+
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (error) {
+        console.error('Error displaying map:', error);
+        handleMapError(results, city);
+    }
+}
+
+/**
+ * Handle map display errors
+ * @param {HTMLElement} results - Results container
+ * @param {string} city - City name
+ */
+function handleMapError(results, city) {
+    results.innerHTML = '';
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'alert alert-danger';
+    errorDiv.role = 'alert';
+    errorDiv.innerHTML = `
+        <strong>Unable to load map</strong>
+        <p>We couldn't load the map for ${city}. This might be due to:</p>
+        <ul>
+            <li>Network connectivity issues</li>
+            <li>Google Maps API service temporarily unavailable</li>
+            <li>Invalid search query</li>
+        </ul>
+        <p>Please try again or search for a different destination.</p>
+    `;
+    results.appendChild(errorDiv);
     renderAttractionList(city);
-
-    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function renderAttractionList(city) {

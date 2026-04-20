@@ -21,10 +21,8 @@ body {
 
 /* Hero Section */
 #hero {
-    /* GitHub Pages path with local fallback */
-    background-image: 
-        url('/Milestone-Project-2--destination-guide/assets/images/Dubai.webp'),
-        url('../images/Dubai.webp');
+    /* Dynamic background image - uses relative path for compatibility */
+    background-image: url('../images/Dubai.webp');
 
     background-size: cover;
     background-position: center;
@@ -65,35 +63,45 @@ body {
     width: 100%;
     max-width: 600px;
     margin: 1rem auto 0 auto;
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: stretch;
-    gap: 0.5rem;
 }
 
-#searchInput {
+#search-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#search-input-wrapper label {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+#search-controls {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 600px;
+    align-items: stretch;
+}
+
+#cityInput {
     flex: 1;
-    min-width: 250px;
+    min-width: 200px;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 5px
-
+    border-radius: 5px;
 }
 
-#searchButton {
-    padding: 0 1rem;
-    font-size: 1rem;
-    border-radius: 0 5px 5px 0;
-    border: 1px solid #ccc;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+#searchForm .btn {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
 }
 
-#searchButton:hover {
-    background-color: #0056b3;
+#search-input-wrapper small {
+    font-size: 0.875rem;
+    color: #666;
 }
 
 /* Destination text */
@@ -158,19 +166,24 @@ footer .container {
         padding: 20px;
     }
 
-    #cover-text h2 {
-        font-size: 1.6rem;
+    #cover-text h1 {
+        font-size: 1.8rem;
     }
 
-    #searchForm {
+    #cover-text h2 {
+        font-size: 1rem;
+    }
+
+    #search-controls {
         flex-direction: column;
     }
 
-    #searchInput {
+    #cityInput {
         border-radius: var(--border-radius);
     }
 
-    #searchButton {
+    #searchForm .btn {
+        width: 100%;
         border-radius: var(--border-radius);
     }
 }
