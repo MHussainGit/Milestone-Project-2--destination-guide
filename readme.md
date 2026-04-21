@@ -5,6 +5,8 @@ A website designed to help people search for landmarks, attractions, restuarants
 ## Table of Contents
 
 - [Project Overview](#project-overview)
+- [Purpose & Value](#purpose--value)
+  - [Value to the User](#value-to-the-user)
 - [User Experience (UX)](#user-experience-ux)
   - [Strategy](#strategy)
   - [Design Rationale](#design-rationale)
@@ -40,6 +42,18 @@ Key focal points:
 - Interactive Search Functionaality
 - Integrated third-party Maps API
 - Clean and easily legible code structure
+
+## Purpose & Value
+The Destination Guide is an interactive platform built to streamline how travelers explore and plan for their next journey. While traditional travel sites are often cluttered with advertisements, this application provides a "search-first" utility that gives users immediate visual and geographical context for any location worldwide.
+
+### Value to the User
+- Visual Contextualization: By integrating the Google Maps Embed API, the site provides an instant responsive map for every search, allowing travelers to visualize the layout of a city or country immediately.
+
+- Intelligent Discovery: The application dynamically generates a "Suggestions List" based on the user's search (e.g., "Restaurants in Paris" or "Hotels in Tokyo"). This allows users to drill down into specific needs without re-typing queries.
+
+- Frictionless Inspiration: The "Popular Destinations" page offers one-click search functionality for iconic global cities. This is specifically designed for casual users who are looking for holiday inspiration but haven't settled on a specific location yet.
+
+- Reliable Performance: Through a mobile-first design and rigorous error handling, users are guaranteed a functional experience even when facing invalid inputs or API connectivity issues, ensuring the tool is reliable while on the go.
 
 ## User Experience (UX)
 
@@ -435,3 +449,6 @@ Free stock photos sourced from Freepik:
 
 - https://www.freepik.com/free-photo/modetn-city-luxury-center-dubai-united-arab-emirates_10824303.htm#fromView=search&page=1&position=3&uuid=d771a197-b840-4c80-9b69-bbf62b3eae07&query=dubai
 
+
+
+[def]: #purpose-&-value
