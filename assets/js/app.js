@@ -14,6 +14,82 @@ var BASE_PATH;
 var sampleCities;
 var GMAP_API_KEY;
 
+/**
+ * Validates search input to prevent empty, short, or invalid formats.
+ * @param {string} query - The search string
+ * @returns {Object} Object containing validity boolean and error message
+ */
+function isValidSearchQuery(query) {
+    "use strict";
+    var validFormat;
+    var chars;
+    var isGibberish;
+
+    // 1. Check for empty string or just spaces
+    if (!query || query.trim().length === 0) {
+        return {
+            message: "Please Enter a City/Country Name.",
+            valid: false
+        };
+    }
+
+    // 2. Check for minimum length (at least 2 characters)
+    if (query.trim().length < 2) {
+        return {
+            message: "Destination name must be at least 2 characters long.",
+            valid: false
+        };
+    }
+
+    // 3. Regex for valid characters (letters, spaces, basic punctuation)
+    // Excludes numbers and special symbols that shouldn't be in city names
+    validFormat = /^[\-a-zA-Z\u00C0-\u017F\s,.'`]+$/.test(query);
+    if (!validFormat) {
+        return {
+            message: "Please use only letters and valid punctuation.",
+            valid: false
+        };
+    }
+
+    // 4. Basic gibberish check (prevents holding down a key like "aaaa")
+    chars = query.split("");
+    isGibberish = chars.some(function (char, index, arr) {
+        return (
+            index <= arr.length - 4
+            && char === arr[index + 1]
+            && char === arr[index + 2]
+            && char === arr[index + 3]
+        );
+    });
+
+    if (isGibberish) {
+        return {
+            message: "Please enter a valid destination name.",
+            valid: false
+        };
+    }
+
+    // OPTIONAL STRICT MODE:
+    // If you ONLY want to allow searches for cities in your predefined list,
+    // uncomment the following lines to completely block random typing:
+    /*
+    var isKnownCity = sampleCities.some(function (c) {
+        return c.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    if (!isKnownCity) {
+        return {
+            message: "Destination not found. Please select from suggestions.",
+            valid: false
+        };
+    }
+    */
+
+    return {
+        message: "",
+        valid: true
+    };
+}
+
 // Populate a datalist element with suggestion options
 function populateSuggestions(list) {
     "use strict";
@@ -187,8 +263,6 @@ function renderAttractionList(city) {
             var lower = city.toLowerCase();
             e.preventDefault();
 
-            // FIXED: Formulate query as "Restaurants in Paris" instead of
-            // "Paris Restaurants" for better multiple-location geocoding
             if (lower.indexOf(item.toLowerCase()) === -1) {
                 query = item + " in " + city;
             }
@@ -286,8 +360,6 @@ window.showCityResults = function (city) {
         iframe.referrerPolicy = "no-referrer-when-downgrade";
         iframe.title = "Google Map showing " + city;
 
-        // FIXED: Use the 'search' embed mode which naturally displays
-        // multiple locations/pins for broader queries
         baseUrl = "https://www.google.com/maps/embed/v1/search";
         q = window.encodeURIComponent(city);
 
@@ -324,6 +396,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var params = new window.URLSearchParams(window.location.search);
     var cityName;
     var cityInput;
+    var validation;
 
     setActiveNavLink();
 
@@ -334,7 +407,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 var collapseEl = document.querySelector(".navbar-collapse");
                 var bsCollapse;
                 if (collapseEl && collapseEl.classList.contains("show")) {
-                    // Ensure bootstrap is loaded before calling this
                     if (window.bootstrap !== undefined) {
                         bsCollapse = new window.bootstrap.Collapse(
                             collapseEl,
@@ -347,8 +419,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Populate suggestions every load (works even if #citySuggestions
-    // not present)
+    // Populate suggestions every load
     populateSuggestions(sampleCities.map(function (city) {
         return city.name;
     }));
@@ -357,10 +428,13 @@ document.addEventListener("DOMContentLoaded", function () {
         searchForm.addEventListener("submit", function (e) {
             var val = document.getElementById("cityInput").value.trim();
             e.preventDefault();
-            if (!val) {
-                alert("Please Enter a City/Country Name");
+            // Validate the input using the new function
+            validation = isValidSearchQuery(val);
+            if (!validation.valid) {
+                alert(validation.message);
                 return;
             }
+
             // When the user types/searches manually, treat this as the new
             // base city
             baseCity = val;
@@ -370,7 +444,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // If on destinations page, populate the cards with sample cities
     if (destList) {
-        // Also populate datalist for search bar suggestions
         populateSuggestions(sampleCities.map(function (c) {
             return c.name;
         }));
@@ -409,13 +482,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Process URL parameters and validate them as well to prevent injection
     if (params.has("city")) {
         cityName = params.get("city");
         cityInput = document.getElementById("cityInput");
-        if (cityInput) {
-            cityInput.value = cityName;
+        validation = isValidSearchQuery(cityName);
+        if (validation.valid) {
+            if (cityInput) {
+                cityInput.value = cityName;
+            }
             baseCity = cityName;
             window.showCityResults(cityName);
+        } else if (cityInput) {
+            // Clear input if URL parameter was invalid
+            cityInput.value = "";
         }
     }
 });
