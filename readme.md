@@ -46,14 +46,25 @@ Key focal points:
 ## Purpose & Value
 The Destination Guide is an interactive platform built to streamline how travelers explore and plan for their next journey. While traditional travel sites are often cluttered with advertisements, this application provides a "search-first" utility that gives users immediate visual and geographical context for any location worldwide.
 
+### Target Audiences & Their Needs
+The application is specifically designed to cater to three distinct types of users:
+
+1. Active Travel Planners: Users who know exactly where they are going and need to efficiently map out specific logistics, such as finding local restaurants, hotels, or attractions.
+
+2. Casual Explorers & Dreamers: Individuals who are looking for holiday inspiration but haven't settled on a specific location yet, needing a frictionless way to browse iconic global cities.
+
+3. On-the-Go Tourists: Travelers already at their destination who require a fast, reliable, mobile-first tool to navigate and discover nearby amenities, even on spotty mobile networks.
+
 ### Value to the User
-- Visual Contextualization: By integrating the Google Maps Embed API, the site provides an instant responsive map for every search, allowing travelers to visualize the layout of a city or country immediately.
+The site provides tangible value to these audiences by focusing on a fast, reliable, and highly visual user experience:
 
-- Intelligent Discovery: The application dynamically generates a "Suggestions List" based on the user's search (e.g., "Restaurants in Paris" or "Hotels in Tokyo"). This allows users to drill down into specific needs without re-typing queries.
+- Visual Contextualization: By integrating the Google Maps Embed API, the site provides an instant, responsive map for every search. This allows travelers to immediately visualize the layout of a city or country, providing crucial spatial awareness before they even arrive.
 
-- Frictionless Inspiration: The "Popular Destinations" page offers one-click search functionality for iconic global cities. This is specifically designed for casual users who are looking for holiday inspiration but haven't settled on a specific location yet.
+- Intelligent Discovery: The application dynamically generates a tailored "Suggestions List" based on the user's initial search (e.g., automatically offering to find "Restaurants in Paris" or "Hotels in Tokyo"). This allows users to drill down into specific needs without the friction of constantly re-typing queries.
 
-- Reliable Performance: Through a mobile-first design and rigorous error handling, users are guaranteed a functional experience even when facing invalid inputs or API connectivity issues, ensuring the tool is reliable while on the go.
+- Frictionless Inspiration: The "Popular Destinations" page serves as a curated discovery engine. It offers one-click search functionality for major global hubs, perfectly catering to users seeking quick inspiration without the mental load of starting a search from scratch.
+
+- Resilient & Accessible Design: Through a strict mobile-first design philosophy and rigorous error handling, the application guarantees a highly functional experience. Users are met with graceful fallbacks even when facing invalid inputs or API connectivity issues, ensuring the tool remains a reliable companion while on the go.
 
 ## User Experience (UX)
 
@@ -265,46 +276,76 @@ https://username.github.io/repository-name/
 - [ ] Invalid URLs redirect to 404 page with home link
 - [ ] Recent searches display correctly
 
-## Testing
+## Testing 
+Testing was structured into three core pillars: Functionality, Usability, and Responsiveness.
 
-### Manual Testing
+### Principles of Testing
 
-#### User Story Verification
+To ensure the Destination Guide application functions correctly and provides a seamless user experience, a combination of testing methodologies must be understood and applied.
 
-| User Story | Feature Tested | Test Case | Result | Evidence |
-|-----------|---|---|---|---|
-| As a traveler, I want to search a city | Search functionality | Enter "Paris" in search box and submit | ✓ Pass | Map displays Paris, attraction list appears |
-| ...and have a map visible | Google Maps embed | Search loads responsive map | ✓ Pass | 16:9 aspect ratio maintained on mobile |
-| ...with attraction suggestions | Attraction filters | Click "Restaurants in Paris" link | ✓ Pass | Map updates with restaurant query |
-| As a casual user, I want popular destinations | Destination cards | Load destinations.html page | ✓ Pass | 9 city cards display correctly |
-| ...with easy search access | Card search buttons | Click "Search" on Barcelona card | ✓ Pass | Redirects to index.html with search executed |
-| As a mobile user, I want responsive design | Mobile layout | View on iPhone 12 (390x844) | ✓ Pass | Navigation collapses, text readable, touch targets >44px |
-| ...fast and adaptive | Page performance | Lighthouse audit | ✓ Pass | Performance score 85+, LCP <2.5s |
-| As a developer, I want clear code | Code documentation | Review assets/js/app.js | ✓ Pass | JSDoc comments on all functions, clear variable names |
+#### Manual Testing
+* **Principles:** Manual testing involves a human tester interacting with the application just as a real user would. It relies on human observation to evaluate usability, design aesthetics, and complex user flows that are difficult to script.
+* **When to deploy:** It is best deployed for Exploratory Testing (discovering unexpected edge cases), Usability Testing (evaluating the UX/UI of the responsive design), and Ad-hoc Testing during early development phases. For this project, manual testing was deployed to ensure the search bar validations worked naturally and that the responsive design adapted beautifully on physical mobile screens.
 
-#### Functional Testing
+#### Automated Testing
+* **Principles:** Automated testing uses software tools and scripts to execute pre-defined tests against the application. It compares actual outcomes with expected outcomes to quickly verify functionality, performance, and code quality. 
+* **When to deploy:** It is highly effective for Regression Testing (ensuring new code doesn't break old features), Unit Testing (checking individual functions, like path rendering), and Performance/Accessibility Audits. In this project, automated testing principles are utilized via Lighthouse to automatically audit the site's performance, SEO, and accessibility metrics.
 
-| Feature | Action | Expected Result | Actual Result |
-|---------|--------|-----------------|---------------|
-| Navigation | Click "Home" link | Redirects to index.html | ✓ Pass |
-| Navigation | Click "Popular Destinations" | Redirects to destinations.html | ✓ Pass |
-| Search | Submit empty search | Shows alert "Please Enter a City/Country Name" | ✓ Pass |
-| Search | Enter "New York" | Map displays New York, attraction list shows | ✓ Pass |
-| Attraction link | Click "Hotels in Tokyo" | Map updates with hotel search query | ✓ Pass |
-| Recent searches | Search "London" | Added to recent searches in localStorage | ✓ Pass |
-| 404 page | Visit `/non-existent-page` | Displays 404 page with home link | ✓ Pass |
-| Map error | Invalid API response | Shows graceful error message | ✓ Pass |
+### User Stories - Finished Project Screenshots
 
-### Browser Compatibility Testing
+The following screenshots demonstrate the final implemented features of the Destination Guide, directly aligning with the core user stories defined during the UX design phase:
 
-The site was tested on:
-- Google Chrome (v120+)
-- Microsoft Edge (v120+)
-- Brave Browser (v1.70+)
-- Firefox (v121+)
-- Safari (iOS 17+)
+#### User Story 1: "As a traveler, I want to search a city and have a map visible with suggestions..."
+**Alignment:** The hero section features a centralized, prominent search bar. Upon searching, a responsive map and dynamic suggestion list immediately populate below it.
+* ![Desktop - Home Page](<assets/images/Desktop-Screenshot-Home.png>)
+* ![Desktop - Home Page Map & Suggestions](<assets/images/Desktop-Screenshot-Home-Map.png>)
 
-**Test Coverage:** 100% of core functionality across all browsers
+#### User Story 2: "As a casual user, I want quick access to popular destinations for holiday ideas..."
+**Alignment:** A dedicated "Popular Destinations" page provides a curated, visual grid of global cities. Clicking "Search" on any card executes a one-click query, bypassing the need to type.
+* ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-1.png>)
+
+#### User Story 3: "As a mobile user, I want the site to be fast and adaptive..."
+**Alignment:** The interface scales down cleanly, providing a full-width search experience and an easily accessible hamburger navigation menu on small screens.
+* ![Mobile - Home Page](<assets/images/Mobile-Screenshot-Home.png>)
+
+#### Functionality Testing (Manual & Automated)
+Functionality testing ensures that every interactive element works exactly as intended, including form validation, API calls, and local storage mechanisms.
+
+| Feature Tested | Testing Procedure (Action) | Expected Result | Actual Result | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Search Validation** | Submit an entirely empty search query on the Home Page. | The system prevents submission and triggers an alert: "Please Enter a City/Country Name". | Validation caught the empty string and fired the alert. | ✅ Pass |
+| **Search Validation** | Enter a 1-character search string (e.g., "A"). | The custom `isValidSearchQuery` function blocks the search and prompts for a longer name. | Alert displayed: "Destination name must be at least 2 characters long." | ✅ Pass |
+| **API Integration** | Search for "London" and press enter. | Google Maps iframe dynamically loads the coordinates for London; suggestion links render below. | Map loaded successfully; links generated correctly. | ✅ Pass |
+| **Local Storage** | Search for 6 different cities consecutively. | The `saveRecentSearch` function tracks the history but truncates to only keep the 5 most recent searches. | Array maintained exactly 5 items in the browser's `localStorage`. | ✅ Pass |
+| **Navigation Routing** | Click "Popular Destinations" from the navbar. | Seamless redirect to `destinations.html`. | Page loaded correctly. | ✅ Pass |
+| **Code Validation** | Run `index.html` through the W3C HTML Validator. | Document checking completed with "No errors or warnings". | Zero syntax errors detected. | ✅ Pass |
+
+#### Usability & Accessibility Testing (Automated Audit)
+To assess usability and accessibility objectively, Google Lighthouse was used to generate performance reports. The goal was to ensure the site is fast and usable for individuals relying on assistive technologies.
+
+* **Performance (85+):** Lighthouse confirmed that the Largest Contentful Paint (LCP) triggers in under 2.5 seconds, ensuring users don't wait for the hero image and map to load.
+* **Accessibility (90+):** The audit verified that semantic HTML5 tags (`<header>`, `<main>`, `<footer>`, `<nav>`) are used correctly. It also confirmed that all dynamically injected images in the destination cards possess descriptive `alt` text.
+* **Keyboard Navigation:** Manual usability tests confirmed that users can tab through the search bar, the "Skip to main content" link, and the destination cards without needing a mouse.
+
+*Insert generated Lighthouse screenshots below)*
+* ![Lighthouse Desktop Home Page Performance](<assets/images/lighthouse-desktop.png>)
+* ![Lighthouse Mobile Home Page Performance](<assets/images/lighthouse-mobile.png>)
+
+#### Responsiveness Testing (Manual)
+Responsiveness was verified using Google Chrome Developer Tools (device simulation) and physical devices to ensure the Bootstrap 5.3 grid adapts correctly across breakpoints.
+
+* **Mobile View (< 600px):** Verified that the main navigation cleanly collapses into a hamburger menu. The destination cards on the Popular Destinations page stack vertically, and touch targets (buttons) maintain a minimum of 44px for easy tapping.
+* **Tablet View (600px - 900px):** Verified that the destination grid adjusts to a two-column layout, optimizing screen real estate without squashing the images.
+* **Desktop View (> 900px):** Verified that the hero container and map iframe do not stretch endlessly, maintaining a clean 16:9 aspect ratio and a centralized layout.
+
+### Development vs. Deployment Verification
+
+To guarantee that the final version deployed to GitHub Pages performed exactly as the local development environment, strict verification procedures were applied during and after implementation:
+
+1. **Dynamic Path Resolution:** During development, it was identified that hardcoded absolute paths break on GitHub Pages due to repository subdirectory routing. To test and fix this, a `getBasePath()` function was implemented in `app.js`. Post-deployment testing verified that images and links loaded correctly on the live server.
+2. **API Key Security & Functionality:** The Google Maps Embed API key was tested in both environments. In development, it worked locally. Before deployment, HTTP referrers were restricted in the Google Cloud Console to only allow requests from the specific GitHub Pages URL, preventing quota theft.
+3. **404 Routing Verification:** The custom `404.html` error page cannot be fully tested via a simple local file protocol. After deploying to GitHub Pages, I manually navigated to a non-existent URL to verify that the server successfully caught the error and routed the user to the custom "Page Not Found" screen.
+4. **Live Regression Testing:** Once pushed to the `main` branch, the live URL was put through the exact same manual functionality suite (testing the search bar, card clicks, and responsive breakpoints) to ensure no regressions occurred during the final build process. All tests passed.
 
 ## Validation
 
@@ -395,10 +436,6 @@ The website was tested across different screen sizes via:
 
 **Status:** Fixed ✓
 
-### Testing Artifacts
-
-- Validation screenshots: `assets/validation/`
-- Test checklist: See "Deployment Verification Checklist" above
 
 ## Future Improvements
 
