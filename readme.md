@@ -112,6 +112,8 @@ The Destination Guide addresses the needs of travelers who require quick, intuit
 3. **As a mobile user**, I want the site to be fast and adpative so that it looks and performs well on smaller screens such as phones and tablets.
 4. **As a developer**, I want the documentation to be structured in a cohesive manner so that I can understand the structure of the project and I want the code to be labelled clearly so that I can update it easily if needed.
 
+- [User Story Verification](#user-story-verification)
+
 ## Skeleton
 
 The website wireframes were created using Balsamiq and can be viewed below.
@@ -291,7 +293,7 @@ To ensure the Destination Guide application functions correctly and provides a s
 * **Principles:** Automated testing uses software tools and scripts to execute pre-defined tests against the application. It compares actual outcomes with expected outcomes to quickly verify functionality, performance, and code quality. 
 * **When to deploy:** It is highly effective for Regression Testing (ensuring new code doesn't break old features), Unit Testing (checking individual functions, like path rendering), and Performance/Accessibility Audits. In this project, automated testing principles are utilized via Lighthouse to automatically audit the site's performance, SEO, and accessibility metrics.
 
-### User Stories - Finished Project Screenshots
+### User Story - Verification
 
 The following screenshots demonstrate the final implemented features of the Destination Guide, directly aligning with the core user stories defined during the UX design phase:
 
@@ -487,5 +489,3 @@ Free stock photos sourced from Freepik:
 - https://www.freepik.com/free-photo/modetn-city-luxury-center-dubai-united-arab-emirates_10824303.htm#fromView=search&page=1&position=3&uuid=d771a197-b840-4c80-9b69-bbf62b3eae07&query=dubai
 
 
-
-[def]: #purpose-&-value
