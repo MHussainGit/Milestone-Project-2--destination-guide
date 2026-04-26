@@ -1,12 +1,11 @@
 ﻿﻿/*global
-    window, document, localStorage, bootstrap, console, alert
+    window, document, localStorage, alert
 */
 
 /*
 app.js - A custom JavaScript for Destination Guide
 It manages the behaviour of the search bar, makes the destination cards
-interactive, handles highlighting the navbar as well as embedding Google Maps
-on the home page.
+interactive, handles highlighting the navbar as well as embedding Google Maps.
 */
 
 var baseCity = "";
@@ -21,9 +20,9 @@ var GMAP_API_KEY;
  */
 function isValidSearchQuery(query) {
     "use strict";
-    var validFormat;
     var chars;
     var isGibberish;
+    var validFormat;
 
     if (!query || query.trim().length === 0) {
         return {
@@ -50,10 +49,10 @@ function isValidSearchQuery(query) {
     chars = query.split("");
     isGibberish = chars.some(function (char, index, arr) {
         return (
-            index <= arr.length - 4
-            && char === arr[index + 1]
-            && char === arr[index + 2]
-            && char === arr[index + 3]
+            index <= arr.length - 4 &&
+            char === arr[index + 1] &&
+            char === arr[index + 2] &&
+            char === arr[index + 3]
         );
     });
 
@@ -74,6 +73,7 @@ function isValidSearchQuery(query) {
 function populateSuggestions(list) {
     "use strict";
     var data = document.getElementById("citySuggestions");
+
     if (!data) {
         return;
     }
@@ -106,17 +106,15 @@ function getRecentSearches() {
 function saveRecentSearch(city) {
     "use strict";
     var recent;
+
     if (!city) {
         return;
     }
     recent = getRecentSearches();
-    // Remove if already exists to avoid duplicates
     recent = recent.filter(function (c) {
         return c.toLowerCase() !== city.toLowerCase();
     });
-    // Add to beginning
     recent.unshift(city);
-    // Keep only last 5
     recent = recent.slice(0, 5);
     localStorage.setItem("recentSearches", JSON.stringify(recent));
 }
@@ -126,15 +124,14 @@ function saveRecentSearch(city) {
  */
 function renderRecentSearches() {
     "use strict";
-    var recent = getRecentSearches();
     var container = document.getElementById("recentSearchesContainer");
     var list = document.getElementById("recentSearchesList");
+    var recent = getRecentSearches();
 
     if (!list) {
         return;
     }
 
-    // Toggle container visibility based on whether history exists
     if (recent.length === 0) {
         if (container) {
             container.style.display = "none";
@@ -146,18 +143,18 @@ function renderRecentSearches() {
         container.style.display = "block";
     }
 
-    list.innerHTML = ""; // Clear current list
+    list.innerHTML = "";
     recent.forEach(function (city) {
-        var li = document.createElement("li");
         var btn = document.createElement("button");
+        var li = document.createElement("li");
 
         li.className = "list-inline-item me-2 mb-2";
-        btn.className = "btn btn-outline-secondary btn-sm";
+        btn.className = "btn btn-outline-light btn-sm opacity-75";
         btn.textContent = city;
 
-        // Make the history item clickable
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", function (e) {
             var cityInput = document.getElementById("cityInput");
+            e.preventDefault();
             if (cityInput) {
                 cityInput.value = city;
             }
@@ -172,8 +169,9 @@ function renderRecentSearches() {
 
 function getBasePath() {
     "use strict";
-    var path;
     var parts;
+    var path;
+
     if (window.location.hostname.indexOf("github.io") !== -1) {
         path = window.location.pathname;
         parts = path.split("/").filter(function (part) {
@@ -238,12 +236,17 @@ sampleCities = [
 
 function setActiveNavLink() {
     "use strict";
-    var path = window.location.pathname.split("/").pop();
     var links = document.querySelectorAll("#mainNav .nav-link");
+    var path = window.location.pathname.split("/").pop();
+
     links.forEach(function (a) {
         var href = a.getAttribute("href");
-        var isHome = (href === "index.html" && path === "");
-        var isActive = (href === path || isHome);
+        var isActive;
+        var isHome;
+
+        isHome = (href === "index.html" && path === "");
+        isActive = (href === path || isHome);
+
         a.classList.toggle("active", isActive);
         if (isActive) {
             a.setAttribute("aria-current", "page");
@@ -255,7 +258,6 @@ function setActiveNavLink() {
 
 function renderAttractionList(city) {
     "use strict";
-    var results = document.getElementById("results");
     var attractions = [
         "Restaurants",
         "Parks",
@@ -263,26 +265,39 @@ function renderAttractionList(city) {
         "Attractions",
         "Hotels"
     ];
+    var results = document.getElementById("results");
     var ul = document.createElement("ul");
 
     if (!results) {
         return;
     }
-    ul.className = "list-group mt-3";
+
+    ul.className = "list-group mt-3 list-group-flush shadow-sm rounded";
+    ul.style.maxWidth = "800px";
+    ul.style.margin = "0 auto";
 
     attractions.forEach(function (item) {
-        var li = document.createElement("li");
         var displayCity = baseCity || city;
+        var li = document.createElement("li");
         var link = document.createElement("a");
 
-        li.className = "list-group-item";
+        li.className = [
+            "list-group-item",
+            "list-group-item-action",
+            "text-center",
+            "fw-bold",
+            "text-primary"
+        ].join(" ");
+
         link.href = "#";
-        link.textContent = item + " in " + displayCity;
+        link.textContent = "Find " + item + " in " + displayCity;
         link.style.cursor = "pointer";
+        link.style.textDecoration = "none";
 
         link.addEventListener("click", function (e) {
-            var query = city;
             var lower = city.toLowerCase();
+            var query = city;
+
             e.preventDefault();
             if (lower.indexOf(item.toLowerCase()) === -1) {
                 query = item + " in " + city;
@@ -299,8 +314,10 @@ function renderAttractionList(city) {
 function handleMapError(results, city) {
     "use strict";
     var errorDiv = document.createElement("div");
+
     results.innerHTML = "";
-    errorDiv.className = "alert alert-danger";
+    errorDiv.className = "alert alert-danger mx-auto mt-4";
+    errorDiv.style.maxWidth = "800px";
     errorDiv.role = "alert";
     errorDiv.innerHTML = [
         "<strong>Unable to load map</strong>",
@@ -314,30 +331,28 @@ function handleMapError(results, city) {
 
 window.showCityResults = function (city) {
     "use strict";
+    var iframe;
+    var mapContainer;
+    var q;
     var results = document.getElementById("results");
     var warning;
-    var mapContainer;
-    var iframe;
-    var q;
 
     if (!results) {
         return;
     }
 
     results.innerHTML = [
-        "<div class='alert alert-info'>Loading ",
+        "<div class='alert alert-info mx-auto mt-4' ",
+        "style='max-width: 800px;'>Loading map for ",
         city,
         "...</div>"
     ].join("");
 
-    // Save search and refresh the recent search UI
-    saveRecentSearch(city);
-    renderRecentSearches();
-
-    if (GMAP_API_KEY === "YOUR_API_KEY" || !GMAP_API_KEY) {
+    if (!GMAP_API_KEY || GMAP_API_KEY === "YOUR_API_KEY") {
         results.innerHTML = "";
         warning = document.createElement("div");
-        warning.className = "alert alert-warning";
+        warning.className = "alert alert-warning mx-auto mt-4";
+        warning.style.maxWidth = "800px";
         warning.innerHTML = [
             "<strong>Configuration Note:</strong> ",
             "Invalid API Key."
@@ -353,15 +368,19 @@ window.showCityResults = function (city) {
         mapContainer.className = "ratio ratio-16x9 mb-3";
         iframe = document.createElement("iframe");
         q = window.encodeURIComponent(city);
+
         iframe.src = [
-            "https://www.google.com/maps/embed/v1/place?key=",
+            "https://www.google.com/maps/embed/v1/search?key=",
             GMAP_API_KEY,
             "&q=",
             q
         ].join("");
+
+        iframe.allowFullscreen = true;
         mapContainer.appendChild(iframe);
         results.appendChild(mapContainer);
         renderAttractionList(city);
+
         results.scrollIntoView({behavior: "smooth", block: "start"});
     } catch (ignore) {
         handleMapError(results, city);
@@ -372,16 +391,14 @@ GMAP_API_KEY = "AIzaSyBt7x_-AgQk4-R38JyMX6Y7RCMnZYqzBpE";
 
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
-    var searchForm = document.getElementById("searchForm");
+    var cityInput;
+    var cityName;
     var destList = document.getElementById("destList");
     var params = new window.URLSearchParams(window.location.search);
-    var cityName;
-    var cityInput;
+    var searchForm = document.getElementById("searchForm");
     var validation;
 
     setActiveNavLink();
-
-    // Show recent searches on page load
     renderRecentSearches();
 
     populateSuggestions(sampleCities.map(function (city) {
@@ -391,14 +408,22 @@ document.addEventListener("DOMContentLoaded", function () {
     if (searchForm) {
         searchForm.addEventListener("submit", function (e) {
             var input = document.getElementById("cityInput");
-            var val = input.value.trim();
+            var val;
+
             e.preventDefault();
+            val = input.value.trim();
             validation = isValidSearchQuery(val);
+
             if (!validation.valid) {
                 alert(validation.message);
                 return;
             }
             baseCity = val;
+            
+            // MOVED HERE: Only save the search if typed into the form
+            saveRecentSearch(val);
+            renderRecentSearches();
+
             window.showCityResults(val);
         });
     }
@@ -407,15 +432,17 @@ document.addEventListener("DOMContentLoaded", function () {
         sampleCities.forEach(function (city) {
             var col = document.createElement("div");
             var content = "";
+
             col.className = "col-12 col-sm-6 col-md-4 mb-4";
 
-            content += "<div class='card h-100'>";
+            content += "<div class='card h-100 card-destination'>";
             content += "<img src='" + city.image + "' class='card-img-top' ";
             content += "alt='" + city.alt + "'>";
             content += "<div class='card-body d-flex flex-column'>";
-            content += "<h5 class='card-title text-center'>" + city.name;
-            content += "</h5><button class='btn btn-primary mt-auto ";
-            content += "search-btn'>Search</button></div></div>";
+            content += "<h5 class='card-title text-center fw-bold'>";
+            content += city.name + "</h5>";
+            content += "<button class='btn btn-primary mt-auto ";
+            content += "search-btn w-100 fw-bold'>Explore</button></div></div>";
 
             col.innerHTML = content;
 

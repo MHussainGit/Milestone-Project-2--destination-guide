@@ -1,235 +1,280 @@
 /*
- * styles.css - custom styles for Destination Guide
- * Extends Bootstrap 5.3 defaults with a few project-specific tweaks.
+ * styles.css - Custom styles for Destination Guide
+ * Extends Bootstrap 5.3 defaults for full responsiveness.
  */
 
-/*CSS Variables for cosistent theming*/
+/* CSS Variables for consistent theming */
 :root {
-    --primary-color: #007bff;
+    --primary-color: #0d6efd;
     --dark-bg: #343a40;
-    --overlay-bg: rgba(0, 0, 0, 0.55);
+    --overlay-bg: rgba(0, 0, 0, 0.6);
     --text-light: #ffffff;
-    --border-radius: 6px;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
 }
 
-/* Global Styles */
+/* Global Styles & Sticky Footer Setup */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh; /* Fixes mobile browser address bar height issues */
+    overflow-x: hidden; /* Prevents accidental horizontal scrolling */
 }
 
-/* Hero Section */
-#hero {
-    /* Dynamic background image - uses relative path for compatibility */
-    background-image: url('../images/Dubai.webp');
+main {
+    flex: 1 0 auto;
+    padding-top: 0; 
+}
 
+/* Skip link for accessibility */
+#skip-link {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    z-index: 1060;
+    transition: top var(--transition-speed);
+}
+
+#skip-link:focus {
+    top: 10px;
+}
+
+/* =========================================
+   Header - Transparent & Floating
+   ========================================= */
+header {
+    background-color: rgba(13, 110, 253, 0.85); /* Transparent blue */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; /* Keep above content */
+    backdrop-filter: blur(5px);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: opacity var(--transition-speed);
+}
+
+.navbar-nav .nav-link:hover {
+    opacity: 0.8;
+}
+
+.navbar-nav .nav-link.active {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+/* =========================================
+   Hero Section - Full Viewport
+   ========================================= */
+#hero {
+    background-image: linear-gradient(var(--overlay-bg), var(--overlay-bg)), url('../images/Dubai.webp');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed; /* Parallax effect */
     background-repeat: no-repeat;
-
+    
+    /* Fill entire screen edge-to-edge safely */
     height: 100vh;
+    height: 100dvh; /* Dynamic height for mobile browsers */
     width: 100%;
-
+    margin: 0;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: relative;
+    padding: 2rem 1rem;
 }
 
 /* Cover Text Styles */
 #cover-text {
     text-align: center;
     color: var(--text-light);
-    background: var(--overlay-bg);
-    padding: 30px;
-    border-radius: 10px;
-    max-width: 90vw;
-    max-width: 700px;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 56px; /* Offset for the fixed navbar */
 }
 
 #cover-text h1 {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    margin: 0.5rem 0;
-}
-
-#cover-text h2,
-#cover-text h3 {
-    margin: 0.5rem 0;
+    font-size: clamp(1.8rem, 5vw, 3.5rem); /* Smooth scaling */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
 
 #cover-text h2 {
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    opacity: 0.9;
 }
 
-#cover-text h3 {
-    font-weight: normal;
-    font-size: 0.9rem;
-}
-
-/* Search Form */
+/* =========================================
+   Search Form (Streamlined Input Group)
+   ========================================= */
 #searchForm {
     width: 100%;
     max-width: 600px;
-    margin: 1rem auto 0 auto;
+    margin: 0 auto;
 }
 
 #search-input-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
+    background: rgba(255, 255, 255, 0.15); /* Glassmorphism */
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-#search-input-wrapper label {
-    margin-bottom: 0.25rem;
-    font-weight: 600;
-}
-
-#search-controls {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-    max-width: 600px;
-    align-items: stretch;
+#search-input-wrapper .input-group {
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
 #cityInput {
-    flex: 1;
-    min-width: 0;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.75rem 1rem;
+    box-shadow: none;
 }
 
-#searchForm .btn {
-    white-space: nowrap;
-    padding: 0.5rem 1rem;
+#search-input-wrapper .btn-primary {
+    padding: 0.75rem 1.5rem;
 }
 
-#search-input-wrapper small {
-    font-size: 0.875rem;
-    color: #ffffff;
+#recentSearchesContainer {
+    margin-top: 0.5rem;
 }
 
-/* Form text styling */
-.form-text {
-    color: #ffffff !important;
+/* =========================================
+   Map & Results - Full Viewport
+   ========================================= */
+#results {
+    max-width: 100% !important;
+    width: 100%; 
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* Destination text */
-#destinations-heading {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    margin-bottom: 1rem;
+#results .alert {
+    border-radius: 0;
+    margin-bottom: 0;
     text-align: center;
 }
 
-/* Destination cards */
-.card-destination {
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* Override Bootstrap ratio for full screen map */
+#results .ratio {
+    height: 100vh !important;
+    height: 100dvh !important;
+    width: 100% !important;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-.card-destination:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+#results .ratio::before {
+    display: none !important; 
 }
 
-/* Navbar */
-.navbar-brand,
-.navbar-nav .nav-link {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+#results .ratio iframe {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
-/* Brand title */
-.navbar-brand {
-    font-size: 1.5rem;
+#results .list-group {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
-/* Navigation links */
-.navbar-nav .nav-link {
-    font-size: 1rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    transition: color 0.3s ease, text-decoration-color 0.3s ease;
-}
-
-/* Active link highlight */
-.navbar-nav .nav-link.active {
+/* =========================================
+   Destination Page & Cards
+   ========================================= */
+#destinations-heading {
     font-weight: 700;
-    text-decoration: underline;
+    margin-bottom: 2rem;
+}
+
+.card-destination, .card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
 }
 
 /* Footer */
 footer {
     background-color: var(--dark-bg);
     color: var(--text-light);
-    padding: 1rem 0;
+    padding: 2rem 0;
+    width: 100%;
 }
 
-footer .container {
+/* 404 Page Customizations */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
     text-align: center;
+    background: linear-gradient(135deg, #0d6efd 0%, #004299 100%);
+    color: white;
+    min-height: 100vh;
+    min-height: 100dvh;
+    flex: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    #cover-text {
-        padding: 25px;
-        max-width: 85vw;
-    }
-}
+/* =========================================
+   Media Queries
+   ========================================= */
 
-@media (max-width: 768px) {
-    #cover-text {
-        padding: 20px;
-        max-width: 90vw;
-    }
-
-    #search-controls {
-        flex-direction: column;
-    }
-
-    #cityInput {
-        border-radius: var(--border-radius);
-    }
-
-    #searchForm .btn {
-        width: 100%;
-        border-radius: var(--border-radius);
-    }
-}
-
-@media (max-width: 480px) {
-    #cover-text {
-        padding: 15px;
-        max-width: 95vw;
-    }
-
+@media (max-width: 991.98px) {
     #cover-text h1 {
-        font-size: 1.3rem;
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #cover-text {
+        padding: 1rem;
+    }
+    #search-input-wrapper {
+        padding: 0.75rem; 
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    #hero {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 6rem 1rem 2rem 1rem;
     }
 
-    #cover-text h2 {
-        font-size: 0.85rem;
-    }
-
-    #searchForm {
-        margin: 0.75rem auto 0 auto;
-    }
-
-    #search-input-wrapper label {
-        font-size: 0.9rem;
-    }
-
-    #search-input-wrapper small {
-        font-size: 0.75rem;
-    }
-
-    #searchForm .btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
+    .error-container {
+        padding: 6rem 2rem;
     }
 }
