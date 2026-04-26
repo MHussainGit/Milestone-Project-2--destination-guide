@@ -329,8 +329,10 @@ To assess usability and accessibility objectively, Google Lighthouse was used to
 * **Accessibility (90+):** The audit verified that semantic HTML5 tags (`<header>`, `<main>`, `<footer>`, `<nav>`) are used correctly. It also confirmed that all dynamically injected images in the destination cards possess descriptive `alt` text.
 * **Keyboard Navigation:** Manual usability tests confirmed that users can tab through the search bar, the "Skip to main content" link, and the destination cards without needing a mouse.
 
-*Insert generated Lighthouse screenshots below)*
+ADD SCREENSHOTS BELOW 
+Desktop - Home Page - Lighthouse Report
 * ![Lighthouse Desktop Home Page Performance](<assets/images/lighthouse-desktop.png>)
+Mobile - Home Page - Lighthouse Report
 * ![Lighthouse Mobile Home Page Performance](<assets/images/lighthouse-mobile.png>)
 
 #### Responsiveness Testing (Manual)
