@@ -438,7 +438,6 @@ The website was tested across different screen sizes via:
 
 **Status:** Fixed ✓
 
-
 ## Future Improvements
 
 Potential improvements include:
@@ -449,24 +448,121 @@ Potential improvements include:
 ## Sources
 
 ### Libraries and Frameworks
+#### Bootstrap 
+Used extensively across the project for the responsive grid, navigation bar, cards, and utility classes.
 
-- Bootstrap – https://getbootstrap.com
+Found in: index.html, destinations.html, and 404.html (via CDN links in the <head> and <body>), styles.css (mentioned in comments as extending defaults), and app.js (used for the collapsing mobile navbar).
 
-- Google Fonts – https://fonts.google.com
+- Attribution: Bootstrap 5.3 – https://getbootstrap.com/docs/5.3/getting-started/download/
 
-- MDN Web Docs (HTML, CSS, JavaScript) - https://developer.mozilla.org/
+#### Google Fonts
+Used as the primary typography for the website.
+
+Found in: index.html, destinations.html, and 404.html (via fonts.googleapis.com CDN links), and applied globally in styles.css (font-family: 'Roboto', sans-serif;).
+
+- Attribution: Google Fonts – https://fonts.google.com
+
+#### MDN Web Documentation
+While the MDN Web Docs (Mozilla Developer Network) isn't a downloadable library like Bootstrap, it is the official repository for standard Web APIs (Vanilla HTML, CSS, and JavaScript). When the project's README attributes MDN, it is acknowledging the use of these standard web technologies.
+
+- Attribution: MDN Web Docs (HTML, CSS, JavaScript) - https://developer.mozilla.org/
+
+Here are specific parts of the codebase that utilize standard Web APIs and modern features exactly as they are documented and taught on MDN:
+
+1. The URLSearchParams API (JavaScript)
+The project uses the URLSearchParams interface to read variables from the web address. This is a standard Web API heavily documented on MDN for parsing URL query strings.
+
+Code in app.js:
+
+JavaScript
+var params = new window.URLSearchParams(window.location.search);
+var cityName;
+// ...
+if (params.has("city")) {
+    cityName = params.get("city");
+    // ...
+}
+Source: assets/js/app.js
+
+2. The Web Storage API (JavaScript)
+The project uses localStorage to save and retrieve the user's recent searches. The methods getItem and setItem are textbook implementations of the MDN Web Storage API.
+
+Code in app.js:
+
+JavaScript
+function getRecentSearches() {
+    "use strict";
+    var stored = localStorage.getItem("recentSearches");
+    return (
+        stored
+        ? JSON.parse(stored)
+        : []
+    );
+}
+// ...
+localStorage.setItem("recentSearches", JSON.stringify(recent));
+Source: assets/js/app.js
+
+3. The <datalist> Element (HTML)
+The search bar uses a <datalist> paired with an <input> field to create a native, accessible dropdown autocomplete menu. This is a specific semantic HTML5 feature extensively detailed on MDN.
+
+Code in index.html:
+
+HTML
+<input list="citySuggestions" type="text" class="form-control" id="cityInput" placeholder="Search a City/Country" aria-label="City or country name" aria-describedby="search-help">
+<button type="submit" class="btn btn-primary" aria-label="Search for destination">Search</button>
+<datalist id="citySuggestions">
+    </datalist>
+Source: index.html
+
+4. The CSS clamp() Function (CSS)
+In the stylesheet, the author uses the clamp() CSS function to create fluid typography that scales automatically between a minimum and maximum size based on the viewport width.
+
+Code in styles.css:
+
+CSS
+#cover-text h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin: 0.5rem 0;
+}
+Source: assets/css/styles.css
+
+5. Advanced Array Iteration Methods (JavaScript)
+Throughout app.js, the code avoids basic for loops in favor of modern Array.prototype methods like .map(), .filter(), .some(), and .forEach(), which form the core of MDN's JavaScript array documentation.
+
+Code in app.js:
+
+JavaScript
+// Using .some() for validation
+isGibberish = chars.some(function (char, index, arr) { ... });
+
+// Using .filter() for base paths and deduplication
+parts = path.split("/").filter(function (part) { return part.length > 0; });
+recent = recent.filter(function (c) { return c !== city; });
+
+// Using .map() to extract city names
+populateSuggestions(sampleCities.map(function (city) { return city.name; }));
+Source: assets/js/app.js
 
 ### APIs
+Google Maps Embed API: Used to dynamically generate and display interactive maps when a user searches for a destination.
 
-- Google Maps Embed API - https://developers.google.com/maps/documentation/embed
+Found in: app.js (specifically within the window.showCityResults function where the iframe src URL https://www.google.com/maps/embed/v1/search is constructed using the GMAP_API_KEY).
+
+- Attribution: Google Maps Embed API - https://developers.google.com/maps/documentation/embed
 
 ### Images
+#### Favicon
+Favicon (Travel Icon): * Found in: The <head> of all HTML files (index.html, destinations.html, 404.html) referenced as assets/favicon/travel.webp.
 
-Favicon
+- Attribution: Flaticon - https://www.flaticon.com/free-icon/travel_826070?term=travel&page=1&position=1&origin=search&related_id=826070
 
-- https://www.flaticon.com/free-icon/travel_826070?term=travel&page=1&position=1&origin=search&related_id=826070
+#### Free stock photos sourced from Freepik:
+City Destination Images: High-quality stock photos used for the popular destination cards and the hero section background.
 
-Free stock photos sourced from Freepik:
+Found in: app.js (the sampleCities array references WebP images for Paris, New York, Tokyo, Barcelona, Sydney, Rome, London, Rio de Janeiro, and Madrid) and styles.css (references Dubai.webp as the hero section background image).
+
+Attribution: Free stock photos sourced from Freepik. The project's README contains individual attribution links for each city photo:
 
 - https://www.freepik.com/free-photo/beautiful-view-empire-states-skyscrapers-new-york-city_8857815.htm#fromView=search&page=1&position=1&uuid=3405d851-2970-4435-8f79-6e3041983651&query=new+york
 
@@ -487,5 +583,3 @@ Free stock photos sourced from Freepik:
 - https://www.freepik.com/free-photo/palace-communication-summer-dusk-madrid_1328394.htm#fromView=search&page=1&position=0&uuid=ae2a72ea-b1fd-4436-aab2-21b3ef6c2a0c&query=madrid
 
 - https://www.freepik.com/free-photo/modetn-city-luxury-center-dubai-united-arab-emirates_10824303.htm#fromView=search&page=1&position=3&uuid=d771a197-b840-4c80-9b69-bbf62b3eae07&query=dubai
-
-
