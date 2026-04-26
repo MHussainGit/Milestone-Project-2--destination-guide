@@ -1,5 +1,5 @@
 ﻿﻿/*global
-    window, document, localStorage, alert
+    window, document, localStorage
 */
 
 /*
@@ -92,6 +92,7 @@ function populateSuggestions(list) {
 function getRecentSearches() {
     "use strict";
     var stored = localStorage.getItem("recentSearches");
+    
     return (
         stored
         ? JSON.parse(stored)
@@ -311,22 +312,10 @@ function renderAttractionList(city) {
     results.appendChild(ul);
 }
 
-function handleMapError(results, city) {
+function handleMapError() {
     "use strict";
-    var errorDiv = document.createElement("div");
-
-    results.innerHTML = "";
-    errorDiv.className = "alert alert-danger mx-auto mt-4";
-    errorDiv.style.maxWidth = "800px";
-    errorDiv.role = "alert";
-    errorDiv.innerHTML = [
-        "<strong>Unable to load map</strong>",
-        "<p>Connectivity issue or invalid query for ",
-        city,
-        ".</p>"
-    ].join("");
-    results.appendChild(errorDiv);
-    renderAttractionList(city);
+    // Redirect to 404 page if the map utterly fails to load or connect
+    window.location.href = "404.html";
 }
 
 window.showCityResults = function (city) {
@@ -335,7 +324,6 @@ window.showCityResults = function (city) {
     var mapContainer;
     var q;
     var results = document.getElementById("results");
-    var warning;
 
     if (!results) {
         return;
@@ -349,16 +337,7 @@ window.showCityResults = function (city) {
     ].join("");
 
     if (!GMAP_API_KEY || GMAP_API_KEY === "YOUR_API_KEY") {
-        results.innerHTML = "";
-        warning = document.createElement("div");
-        warning.className = "alert alert-warning mx-auto mt-4";
-        warning.style.maxWidth = "800px";
-        warning.innerHTML = [
-            "<strong>Configuration Note:</strong> ",
-            "Invalid API Key."
-        ].join("");
-        results.appendChild(warning);
-        renderAttractionList(city);
+        window.location.href = "404.html"; // Invalid API redirects to 404
         return;
     }
 
@@ -383,7 +362,7 @@ window.showCityResults = function (city) {
 
         results.scrollIntoView({behavior: "smooth", block: "start"});
     } catch (ignore) {
-        handleMapError(results, city);
+        handleMapError();
     }
 };
 
@@ -414,13 +393,13 @@ document.addEventListener("DOMContentLoaded", function () {
             val = input.value.trim();
             validation = isValidSearchQuery(val);
 
+            // FIX: Invalid search routes straight to 404 page instead of an alert
             if (!validation.valid) {
-                alert(validation.message);
+                window.location.href = "404.html";
                 return;
             }
-            baseCity = val;
             
-            // MOVED HERE: Only save the search if typed into the form
+            baseCity = val;
             saveRecentSearch(val);
             renderRecentSearches();
 
@@ -460,13 +439,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (params.has("city")) {
         cityName = params.get("city");
         validation = isValidSearchQuery(cityName);
-        if (validation.valid) {
-            cityInput = document.getElementById("cityInput");
-            if (cityInput) {
-                cityInput.value = cityName;
-            }
-            baseCity = cityName;
-            window.showCityResults(cityName);
+        
+        // FIX: Invalid URL parameters route straight to 404 page
+        if (!validation.valid) {
+            window.location.href = "404.html";
+            return;
         }
+        
+        cityInput = document.getElementById("cityInput");
+        if (cityInput) {
+            cityInput.value = cityName;
+        }
+        baseCity = cityName;
+        window.showCityResults(cityName);
     }
 });
