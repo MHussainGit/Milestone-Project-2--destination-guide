@@ -474,7 +474,7 @@ The project uses the URLSearchParams interface to read variables from the web ad
 
 Code in app.js:
 
-JavaScript
+```
 var params = new window.URLSearchParams(window.location.search);
 var cityName;
 // ...
@@ -482,6 +482,7 @@ if (params.has("city")) {
     cityName = params.get("city");
     // ...
 }
+```
 Source: assets/js/app.js
 
 2. The <datalist> Element (HTML)
@@ -489,11 +490,12 @@ The search bar uses a <datalist> paired with an <input> field to create a native
 
 Code in index.html:
 
-HTML
+```
 <input list="citySuggestions" type="text" class="form-control" id="cityInput" placeholder="Search a City/Country" aria-label="City or country name" aria-describedby="search-help">
 <button type="submit" class="btn btn-primary" aria-label="Search for destination">Search</button>
 <datalist id="citySuggestions">
     </datalist>
+```
 Source: index.html
 
 3. The CSS clamp() Function (CSS)
@@ -501,11 +503,12 @@ In the stylesheet, the clamp() CSS function is used to create fluid typography t
 
 Code in styles.css:
 
-CSS
+``` 
 #cover-text h1 {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     margin: 0.5rem 0;
 }
+```
 Source: assets/css/styles.css
 
 4. Advanced Array Iteration Methods (JavaScript)
@@ -513,16 +516,21 @@ Throughout app.js, the code avoids basic for loops in favor of modern Array.prot
 
 Code in app.js:
 
-JavaScript
 // Using .some() for validation
+```
 isGibberish = chars.some(function (char, index, arr) { ... });
-
+```
 // Using .filter() for base paths and deduplication
+
+```
 parts = path.split("/").filter(function (part) { return part.length > 0; });
 recent = recent.filter(function (c) { return c !== city; });
+```
 
 // Using .map() to extract city names
+```
 populateSuggestions(sampleCities.map(function (city) { return city.name; }));
+```
 Source: assets/js/app.js
 
 ### APIs
