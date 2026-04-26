@@ -365,6 +365,10 @@ All HTML files were tested using the W3C Markup Validation Service:
 The CSS stylesheet was tested using the W3C Jigsaw CSS Validator and returned no errors.
 #### ![CSS - Validator Result](<assets/validation/css-validator-pass.png>)
 
+### JavaScript Validation
+The app.js javascript code was tested using the JSlint validator and returned no errors.
+#### ![JS - Validator Result](<assets/validation/javascript-jslint-validator.png>)
+
 ### Responsive Design Testing
 
 The website was tested across different screen sizes via:
