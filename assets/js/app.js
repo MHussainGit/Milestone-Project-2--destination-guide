@@ -314,8 +314,30 @@ function renderAttractionList(city) {
 
 function handleMapError() {
     "use strict";
-    // Redirect to 404 page if the map utterly fails to load or connect
     window.location.href = "404.html";
+}
+
+/**
+ * Displays a custom error message to the user when search validation fails
+ * @param {string} message - The error message to show
+ */
+function displaySearchError(message) {
+    "use strict";
+    var results = document.getElementById("results");
+    
+    if (!results) {
+        return;
+    }
+    
+    results.innerHTML = [
+        "<div class='alert alert-warning alert-dismissible fade show mx-auto mt-4' ",
+        "style='max-width: 800px;' role='alert'>",
+        "<strong>Oops!</strong> ", message,
+        "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+        "</div>"
+    ].join("");
+    
+    results.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
 window.showCityResults = function (city) {
@@ -393,9 +415,9 @@ document.addEventListener("DOMContentLoaded", function () {
             val = input.value.trim();
             validation = isValidSearchQuery(val);
 
-            // FIX: Invalid search routes straight to 404 page instead of an alert
+            // CHANGED: Instead of redirecting to 404.html, show the dynamic error message!
             if (!validation.valid) {
-                window.location.href = "404.html";
+                displaySearchError(validation.message);
                 return;
             }
             
@@ -440,9 +462,9 @@ document.addEventListener("DOMContentLoaded", function () {
         cityName = params.get("city");
         validation = isValidSearchQuery(cityName);
         
-        // FIX: Invalid URL parameters route straight to 404 page
+        // CHANGED: Also replaced the 404 URL fallback for parameter loading
         if (!validation.valid) {
-            window.location.href = "404.html";
+            displaySearchError(validation.message);
             return;
         }
         
