@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <a href="#main-content" class="btn btn-light" id="skip-link">Skip to main content</a>
     
     <header class="text-white">
@@ -33,16 +33,20 @@
         </nav>
     </header>
 
-    <main id="main-content" class="d-flex flex-column flex-grow-1">
-        <div class="error-container">
-            <h1 class="display-1 fw-bold">404</h1>
-            <p class="lead mb-4">Oops! The page you're looking for doesn't exist.</p>
-            <p class="mb-5 opacity-75">It might have been moved or deleted. But don't worry, you can still explore amazing destinations!</p>
-            <a href="index.html" class="btn btn-light btn-lg px-5 py-3 fw-bold shadow-sm" style="color: #0d6efd;" role="button">Return to Home</a>
+    <main id="main-content" class="d-flex flex-column flex-grow-1 mt-5">
+        
+        <div class="error-container flex-grow-1 px-3 py-5" style="min-height: auto;">
+            
+            <h1 class="fw-bold" style="font-size: clamp(4rem, 20vw, 8rem); text-shadow: 2px 4px 10px rgba(0,0,0,0.3);">404</h1>
+            
+            <p class="lead mb-4 fw-medium">Oops! The page you're looking for doesn't exist.</p>
+            <p class="mb-5 opacity-75 mx-auto" style="max-width: 500px;">It might have been moved or deleted. But don't worry, you can still explore amazing destinations!</p>
+            
+            <a href="index.html" class="btn btn-light btn-lg px-4 py-3 fw-bold shadow-sm rounded-pill" style="color: #0d6efd;" role="button">Return to Home</a>
         </div>
     </main>
 
-    <footer>
+    <footer class="mt-auto">
         <div class="container text-center">
             <p class="mb-0">&copy; 2026 Destination Guide. All rights reserved.</p>
         </div>
