@@ -5,25 +5,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Destination Guide: search your next holiday destination and explore attractions, accommodations, and restaurants.">
+    <meta name="description" content="Destination Guide: search your next holiday destination and explore attractions, accommodations, and restaurants.">
     <meta name="keywords" content="holiday, travel, destinations, attractions, hotels, historic sites, vacation">
     <title>Destination Guide</title>
-    <link rel="icon" sizes="180x180" type="image/png" href="assets/favicon/travel.webp">
-    <link rel="stylesheet" href="assets/css/styles.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+    <link rel="icon" type="image/webp" href="assets/favicon/travel.webp">
+
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; }
+        header { min-height: 56px; background-color: #0d6efd; }
+        #hero { min-height: 400px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; }
+        .btn-primary { background-color: #0d6efd; border: none; }
+        #skip-link:not(:focus) { position: absolute; top: -40px; }
+        /* Style for recent search items */
+        .recent-search-item { cursor: pointer; margin-right: 10px; text-decoration: underline; color: #0d6efd; }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+          media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <a href="#main-content" class="btn btn-primary position-absolute" style="top: -40px; left: 0; z-index: 10000;" id="skip-link">Skip to main content</a>
+    <a href="#main-content" class="btn btn-primary position-absolute" id="skip-link" style="z-index: 10000;">Skip to main content</a>
     
     <header class="bg-primary text-white">
         <nav class="navbar navbar-expand-lg navbar-dark container" aria-label="Main navigation">
@@ -34,7 +44,7 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="destinations.html"> Popular Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="destinations.html">Popular Destinations</a></li>
                 </ul>
             </div>
         </nav>
@@ -42,49 +52,51 @@
 
     <main class="container-fluid p-0" id="main-content">
         <section id="hero">
-            <div id="cover-text">
+            <div id="cover-text" class="text-center p-4">
                 <h1>Welcome to Destination Guide</h1>
                 <h2>Search your next holiday destination to explore attractions, accommodation and historic sites</h2>
+                
                 <form id="searchForm" autocomplete="off" aria-label="Destination search form">
                     <div id="search-input-wrapper">
-                        <label for="cityInput">Search a City or Country</label>
-                        <div id="search-controls">
-                            <input list="citySuggestions" type="text" class="form-control" id="cityInput" placeholder="Search a City/Country" aria-label="City or country name" aria-describedby="search-help">
+                        <label for="cityInput" class="form-label">Search a City or Country</label>
+                        <div id="search-controls" class="d-flex gap-2 justify-content-center">
+                            <input list="citySuggestions" type="text" class="form-control" style="max-width: 400px;" id="cityInput" placeholder="Search a City/Country" aria-label="City or country name" aria-describedby="search-help">
                             <button type="submit" class="btn btn-primary" aria-label="Search for destination">Search</button>
                         </div>
-                        <small id="search-help" class="form-text">Type a city name and press Enter or click Search</small>
-                        <datalist id="citySuggestions">
-                            </datalist>
+
+                        <div id="recentSearchesContainer" style="display: none;" class="mt-2">
+                            <small class="text-muted">Recent:</small>
+                            <ul id="recentSearchesList" class="list-inline d-inline p-0" style="list-style: none;"></ul>
+                        </div>
+
+                        <small id="search-help" class="form-text d-block mt-2">Type a city name and press Enter or click Search</small>
+                        <datalist id="citySuggestions"></datalist>
                     </div>
                 </form>
             </div>
         </section>
-        <div id="results" aria-live="polite" aria-atomic="true"></div>
+        <div id="results" class="container mt-4" aria-live="polite" aria-atomic="true"></div>
     </main>
 
     <footer>
-        <div class="container text-center">
+        <div class="container text-center py-3">
             &copy; 2026 Destination Guide. All rights reserved.
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     
     <script>
-        const skipLink = document.getElementById('skip-link');
-        if (skipLink) {
-            skipLink.addEventListener('focus', function() {
-                this.style.top = '0';
-            });
-            skipLink.addEventListener('blur', function() {
-                this.style.top = '-40px';
-            });
-        }
+        // Accessibility Skip Link Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const skipLink = document.getElementById('skip-link');
+            if (skipLink) {
+                skipLink.addEventListener('focus', () => { skipLink.style.top = '0'; });
+                skipLink.addEventListener('blur', () => { skipLink.style.top = '-40px'; });
+            }
+        });
     </script>
     
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.js" defer></script>
 </body>
-
 </html>
