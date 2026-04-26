@@ -484,26 +484,7 @@ if (params.has("city")) {
 }
 Source: assets/js/app.js
 
-2. The Web Storage API (JavaScript)
-The project uses localStorage to save and retrieve the user's recent searches. The methods getItem and setItem are textbook implementations of the MDN Web Storage API.
-
-Code in app.js:
-
-JavaScript
-function getRecentSearches() {
-    "use strict";
-    var stored = localStorage.getItem("recentSearches");
-    return (
-        stored
-        ? JSON.parse(stored)
-        : []
-    );
-}
-// ...
-localStorage.setItem("recentSearches", JSON.stringify(recent));
-Source: assets/js/app.js
-
-3. The <datalist> Element (HTML)
+2. The <datalist> Element (HTML)
 The search bar uses a <datalist> paired with an <input> field to create a native, accessible dropdown autocomplete menu. This is a specific semantic HTML5 feature extensively detailed on MDN.
 
 Code in index.html:
@@ -515,8 +496,8 @@ HTML
     </datalist>
 Source: index.html
 
-4. The CSS clamp() Function (CSS)
-In the stylesheet, the author uses the clamp() CSS function to create fluid typography that scales automatically between a minimum and maximum size based on the viewport width.
+3. The CSS clamp() Function (CSS)
+In the stylesheet, the clamp() CSS function is used to create fluid typography that scales automatically between a minimum and maximum size based on the viewport width.
 
 Code in styles.css:
 
@@ -527,7 +508,7 @@ CSS
 }
 Source: assets/css/styles.css
 
-5. Advanced Array Iteration Methods (JavaScript)
+4. Advanced Array Iteration Methods (JavaScript)
 Throughout app.js, the code avoids basic for loops in favor of modern Array.prototype methods like .map(), .filter(), .some(), and .forEach(), which form the core of MDN's JavaScript array documentation.
 
 Code in app.js:
