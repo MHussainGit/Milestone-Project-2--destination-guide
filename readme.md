@@ -480,41 +480,56 @@ The project uses the `URLSearchParams` interface to read variables from the web 
 Code in `app.js`:
 
 ```javascript
-var params = new window.URLSearchParams(window.location.search);
-var cityName;
+const params = new URLSearchParams(window.location.search);
 
 if (params.has("city")) {
-    cityName = params.get("city");
-    validation = isValidSearchQuery(cityName);
+    const cityName = params.get("city");
+    const validation = isValidSearchQuery(cityName);
+
     if (!validation.valid) {
-        window.location.href = "404.html";
+        displaySearchError(validation.message);
         return;
     }
-    cityInput = document.getElementById("cityInput");
+
+    const cityInput = document.getElementById("cityInput");
     if (cityInput) {
         cityInput.value = cityName;
     }
+
     baseCity = cityName;
     window.showCityResults(cityName);
 }
 ```
 Source: `assets/js/app.js`
 
-**2. The `<datalist>` Element (HTML)**
+**2. Advanced Array Iteration Methods(JavaScript)**
 
-The search bar uses a `<datalist>` paired with an `<input>` field to create a native, accessible dropdown autocomplete menu. This is a specific semantic HTML5 feature extensively detailed on MDN.
+Throughout `app.js`, the code avoids basic for loops in favour of modern `Array.prototype` methods like `.map()`, `.filter()`, `.some()`, and `.forEach()`, which form the core of MDN's JavaScript array documentation.
 
-Code in `index.html`:
+Code in `app.js`:
 
-```html
-<input list="citySuggestions" type="text" class="form-control border-0" id="cityInput"
-    placeholder="e.g. Paris, Tokyo, New York"
-    aria-label="City or country name"
-    aria-describedby="search-help">
-<button type="submit" class="btn btn-primary px-4 fw-bold">Search</button>
-<datalist id="citySuggestions"></datalist>
+```javascript
+// Using .some() for gibberish validation
+const isGibberish = chars.some(function (char, index, arr) {
+    const match1 = char === arr[index + 1];
+    const match2 = char === arr[index + 2];
+    const match3 = char === arr[index + 3];
+    return index <= arr.length - 4 && match1 && match2 && match3;
+});
+
+// Using .filter() for base path parsing
+const parts = window.location.pathname.split("/").filter(
+    function (part) {
+        return part.length > 0;
+    }
+);
+
+// Using .map() to extract city names for datalist
+populateSuggestions(sampleCities.map(function (city) {
+    return city.name;
+}));
 ```
-Source: `index.html`
+Source: `app.js`
 
 **3. The CSS `clamp()` Function (CSS)**
 
@@ -532,31 +547,22 @@ Code in `styles.css`:
 ```
 Source: `assets/css/styles.css`
 
-**4. Advanced Array Iteration Methods (JavaScript)**
+**4. The <datalist> Element (HTML)
 
-Throughout `app.js`, the code avoids basic for loops in favour of modern `Array.prototype` methods like `.map()`, `.filter()`, `.some()`, and `.forEach()`, which form the core of MDN's JavaScript array documentation.
+The search bar uses a <datalist> paired with an <input> field to create a native, accessible dropdown autocomplete menu. This is a specific semantic HTML5 feature extensively detailed on MDN.
 
-Code in `app.js`:
+Code in index.html:
 
 ```javascript
-// Using .some() for gibberish validation
-isGibberish = chars.some(function (char, index, arr) {
-    return (
-        index <= arr.length - 4 &&
-        char === arr[index + 1] &&
-        char === arr[index + 2] &&
-        char === arr[index + 3]
-    );
-});
-
-// Using .filter() for base path parsing and deduplication
-parts = path.split("/").filter(function (part) { return part.length > 0; });
-recent = recent.filter(function (c) { return c.toLowerCase() !== city.toLowerCase(); });
-
-// Using .map() to extract city names for datalist
-populateSuggestions(sampleCities.map(function (city) { return city.name; }));
+//html 
+<input list="citySuggestions" type="text" class="form-control border-0" id="cityInput"
+    placeholder="e.g. Paris, Tokyo, New York"
+    aria-label="City or country name"
+    aria-describedby="search-help">
+<button type="submit" class="btn btn-primary px-4 fw-bold">Search</button>
+<datalist id="citySuggestions"></datalist>
 ```
-Source: `assets/js/app.js`
+Source: `index.html`
 
 **5. Dynamic Path Resolution**
 
