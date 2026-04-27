@@ -1,6 +1,4 @@
-﻿﻿/*global
-    window, document, localStorage
-*/
+﻿﻿/*global window, document, localStorage, URLSearchParams */
 
 /*
 app.js - A custom JavaScript for Destination Guide
@@ -8,10 +6,74 @@ It manages the behaviour of the search bar, makes the destination cards
 interactive, handles highlighting the navbar as well as embedding Google Maps.
 */
 
-var baseCity = "";
-var BASE_PATH;
-var sampleCities;
-var GMAP_API_KEY;
+let baseCity = "";
+
+// Restrict API key in Google Cloud Console to your specific domain!
+const GMAP_API_KEY = "AIzaSyBt7x_-AgQk4-R38JyMX6Y7RCMnZYqzBpE";
+
+function getBasePath() {
+    if (window.location.hostname.includes("github.io")) {
+        const parts = window.location.pathname.split("/").filter(
+            function (part) {
+                return part.length > 0;
+            }
+        );
+        if (parts.length > 0) {
+            return `/${parts[0]}/`;
+        }
+    }
+    return "/";
+}
+
+const BASE_PATH = getBasePath();
+
+const sampleCities = [
+    {
+        alt: "Eiffel Tower and skyline in Paris, France",
+        image: `${BASE_PATH}assets/images/Paris.webp`,
+        name: "Paris, France"
+    },
+    {
+        alt: "Skyline of New York City with skyscrapers",
+        image: `${BASE_PATH}assets/images/New-York.webp`,
+        name: "New York, USA"
+    },
+    {
+        alt: "Tokyo city skyline with illuminated buildings",
+        image: `${BASE_PATH}assets/images/Tokyo.webp`,
+        name: "Tokyo, Japan"
+    },
+    {
+        alt: "View of Barcelona featuring Sagrada Familia",
+        image: `${BASE_PATH}assets/images/Barcelona.webp`,
+        name: "Barcelona, Spain"
+    },
+    {
+        alt: "Sydney Opera House and harbour skyline",
+        image: `${BASE_PATH}assets/images/Sydney.webp`,
+        name: "Sydney, Australia"
+    },
+    {
+        alt: "The Colosseum in Rome, Italy",
+        image: `${BASE_PATH}assets/images/Rome.webp`,
+        name: "Rome, Italy"
+    },
+    {
+        alt: "London skyline with Big Ben and the River Thames",
+        image: `${BASE_PATH}assets/images/London.webp`,
+        name: "London, UK"
+    },
+    {
+        alt: "Christ the Redeemer statue overlooking Rio de Janeiro",
+        image: `${BASE_PATH}assets/images/Rio-de-Janeiro.webp`,
+        name: "Rio de Janeiro, Brazil"
+    },
+    {
+        alt: "Cityscape of Madrid, Spain",
+        image: `${BASE_PATH}assets/images/Madrid.webp`,
+        name: "Madrid, Spain"
+    }
+];
 
 /**
  * Validates search input to prevent empty, short, or invalid formats.
@@ -19,11 +81,6 @@ var GMAP_API_KEY;
  * @returns {Object} Object containing validity boolean and error message
  */
 function isValidSearchQuery(query) {
-    "use strict";
-    var chars;
-    var isGibberish;
-    var validFormat;
-
     if (!query || query.trim().length === 0) {
         return {
             message: "Please Enter a City/Country Name.",
@@ -38,7 +95,7 @@ function isValidSearchQuery(query) {
         };
     }
 
-    validFormat = /^[\-a-zA-Z\u00C0-\u017F\s,.'`]+$/.test(query);
+    const validFormat = /^[\-a-zA-Z\u00C0-\u017F\s,.'`]+$/.test(query);
     if (!validFormat) {
         return {
             message: "Please use only letters and valid punctuation.",
@@ -46,14 +103,12 @@ function isValidSearchQuery(query) {
         };
     }
 
-    chars = query.split("");
-    isGibberish = chars.some(function (char, index, arr) {
-        return (
-            index <= arr.length - 4 &&
-            char === arr[index + 1] &&
-            char === arr[index + 2] &&
-            char === arr[index + 3]
-        );
+    const chars = query.split("");
+    const isGibberish = chars.some(function (char, index, arr) {
+        const match1 = char === arr[index + 1];
+        const match2 = char === arr[index + 2];
+        const match3 = char === arr[index + 3];
+        return index <= arr.length - 4 && match1 && match2 && match3;
     });
 
     if (isGibberish) {
@@ -71,15 +126,14 @@ function isValidSearchQuery(query) {
 
 // Populate a datalist element with suggestion options
 function populateSuggestions(list) {
-    "use strict";
-    var data = document.getElementById("citySuggestions");
-
+    const data = document.getElementById("citySuggestions");
     if (!data) {
         return;
     }
+
     data.innerHTML = "";
     list.forEach(function (item) {
-        var opt = document.createElement("option");
+        const opt = document.createElement("option");
         opt.value = item;
         data.appendChild(opt);
     });
@@ -90,9 +144,7 @@ function populateSuggestions(list) {
  * @returns {Array} Array of recent city searches
  */
 function getRecentSearches() {
-    "use strict";
-    var stored = localStorage.getItem("recentSearches");
-    
+    const stored = localStorage.getItem("recentSearches");
     return (
         stored
         ? JSON.parse(stored)
@@ -105,13 +157,11 @@ function getRecentSearches() {
  * @param {string} city - City name to save
  */
 function saveRecentSearch(city) {
-    "use strict";
-    var recent;
-
     if (!city) {
         return;
     }
-    recent = getRecentSearches();
+
+    let recent = getRecentSearches();
     recent = recent.filter(function (c) {
         return c.toLowerCase() !== city.toLowerCase();
     });
@@ -124,10 +174,9 @@ function saveRecentSearch(city) {
  * Renders the recent searches list into the UI
  */
 function renderRecentSearches() {
-    "use strict";
-    var container = document.getElementById("recentSearchesContainer");
-    var list = document.getElementById("recentSearchesList");
-    var recent = getRecentSearches();
+    const container = document.getElementById("recentSearchesContainer");
+    const list = document.getElementById("recentSearchesList");
+    const recent = getRecentSearches();
 
     if (!list) {
         return;
@@ -146,19 +195,20 @@ function renderRecentSearches() {
 
     list.innerHTML = "";
     recent.forEach(function (city) {
-        var btn = document.createElement("button");
-        var li = document.createElement("li");
+        const btn = document.createElement("button");
+        const li = document.createElement("li");
 
         li.className = "list-inline-item me-2 mb-2";
         btn.className = "btn btn-outline-light btn-sm opacity-75";
         btn.textContent = city;
 
         btn.addEventListener("click", function (e) {
-            var cityInput = document.getElementById("cityInput");
             e.preventDefault();
+            const cityInput = document.getElementById("cityInput");
             if (cityInput) {
                 cityInput.value = city;
             }
+
             baseCity = city;
             window.showCityResults(city);
         });
@@ -168,85 +218,14 @@ function renderRecentSearches() {
     });
 }
 
-function getBasePath() {
-    "use strict";
-    var parts;
-    var path;
-
-    if (window.location.hostname.indexOf("github.io") !== -1) {
-        path = window.location.pathname;
-        parts = path.split("/").filter(function (part) {
-            return part.length > 0;
-        });
-        if (parts.length > 0) {
-            return "/" + parts[0] + "/";
-        }
-    }
-    return "/";
-}
-
-BASE_PATH = getBasePath();
-
-sampleCities = [
-    {
-        alt: "Eiffel Tower and skyline in Paris, France",
-        image: BASE_PATH + "assets/images/Paris.webp",
-        name: "Paris, France"
-    },
-    {
-        alt: "Skyline of New York City with skyscrapers",
-        image: BASE_PATH + "assets/images/New-York.webp",
-        name: "New York, USA"
-    },
-    {
-        alt: "Tokyo city skyline with illuminated buildings",
-        image: BASE_PATH + "assets/images/Tokyo.webp",
-        name: "Tokyo, Japan"
-    },
-    {
-        alt: "View of Barcelona featuring Sagrada Familia",
-        image: BASE_PATH + "assets/images/Barcelona.webp",
-        name: "Barcelona, Spain"
-    },
-    {
-        alt: "Sydney Opera House and harbour skyline",
-        image: BASE_PATH + "assets/images/Sydney.webp",
-        name: "Sydney, Australia"
-    },
-    {
-        alt: "The Colosseum in Rome, Italy",
-        image: BASE_PATH + "assets/images/Rome.webp",
-        name: "Rome, Italy"
-    },
-    {
-        alt: "London skyline with Big Ben and the River Thames",
-        image: BASE_PATH + "assets/images/London.webp",
-        name: "London, UK"
-    },
-    {
-        alt: "Christ the Redeemer statue overlooking Rio de Janeiro",
-        image: BASE_PATH + "assets/images/Rio-de-Janeiro.webp",
-        name: "Rio de Janeiro, Brazil"
-    },
-    {
-        alt: "Cityscape of Madrid, Spain",
-        image: BASE_PATH + "assets/images/Madrid.webp",
-        name: "Madrid, Spain"
-    }
-];
-
 function setActiveNavLink() {
-    "use strict";
-    var links = document.querySelectorAll("#mainNav .nav-link");
-    var path = window.location.pathname.split("/").pop();
+    const links = document.querySelectorAll("#mainNav .nav-link");
+    const path = window.location.pathname.split("/").pop();
 
     links.forEach(function (a) {
-        var href = a.getAttribute("href");
-        var isActive;
-        var isHome;
-
-        isHome = (href === "index.html" && path === "");
-        isActive = (href === path || isHome);
+        const href = a.getAttribute("href");
+        const isHome = (href === "index.html" && path === "");
+        const isActive = (href === path || isHome);
 
         a.classList.toggle("active", isActive);
         if (isActive) {
@@ -258,29 +237,28 @@ function setActiveNavLink() {
 }
 
 function renderAttractionList(city) {
-    "use strict";
-    var attractions = [
+    const attractions = [
         "Restaurants",
         "Parks",
         "Historic Sites",
         "Attractions",
         "Hotels"
     ];
-    var results = document.getElementById("results");
-    var ul = document.createElement("ul");
+    const results = document.getElementById("results");
 
     if (!results) {
         return;
     }
 
+    const ul = document.createElement("ul");
     ul.className = "list-group mt-3 list-group-flush shadow-sm rounded";
     ul.style.maxWidth = "800px";
     ul.style.margin = "0 auto";
 
     attractions.forEach(function (item) {
-        var displayCity = baseCity || city;
-        var li = document.createElement("li");
-        var link = document.createElement("a");
+        const displayCity = baseCity || city;
+        const li = document.createElement("li");
+        const link = document.createElement("a");
 
         li.className = [
             "list-group-item",
@@ -291,17 +269,16 @@ function renderAttractionList(city) {
         ].join(" ");
 
         link.href = "#";
-        link.textContent = "Find " + item + " in " + displayCity;
+        link.textContent = `Find ${item} in ${displayCity}`;
         link.style.cursor = "pointer";
         link.style.textDecoration = "none";
 
         link.addEventListener("click", function (e) {
-            var lower = city.toLowerCase();
-            var query = city;
-
             e.preventDefault();
-            if (lower.indexOf(item.toLowerCase()) === -1) {
-                query = item + " in " + city;
+            const lower = city.toLowerCase();
+            let query = `${item} in ${city}`;
+            if (lower.includes(item.toLowerCase())) {
+                query = city;
             }
             window.showCityResults(query);
         });
@@ -309,11 +286,11 @@ function renderAttractionList(city) {
         li.appendChild(link);
         ul.appendChild(li);
     });
+
     results.appendChild(ul);
 }
 
 function handleMapError() {
-    "use strict";
     window.location.href = "404.html";
 }
 
@@ -322,54 +299,52 @@ function handleMapError() {
  * @param {string} message - The error message to show
  */
 function displaySearchError(message) {
-    "use strict";
-    var results = document.getElementById("results");
-    
+    const results = document.getElementById("results");
     if (!results) {
         return;
     }
-    
+
     results.innerHTML = [
-        "<div class='alert alert-warning alert-dismissible fade show mx-auto mt-4' ",
-        "style='max-width: 800px;' role='alert'>",
+        "<div class='alert alert-warning alert-dismissible fade show ",
+        "mx-auto mt-4' style='max-width: 800px;' role='alert'>",
         "<strong>Oops!</strong> ", message,
-        "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>",
+        "<button type='button' class='btn-close' data-bs-dismiss='alert' ",
+        "aria-label='Close'></button>",
         "</div>"
     ].join("");
-    
+
     results.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
 window.showCityResults = function (city) {
-    "use strict";
-    var iframe;
-    var mapContainer;
-    var q;
-    var results = document.getElementById("results");
-
+    const results = document.getElementById("results");
     if (!results) {
         return;
     }
 
-    results.innerHTML = [
-        "<div class='alert alert-info mx-auto mt-4' ",
-        "style='max-width: 800px;'>Loading map for ",
-        city,
-        "...</div>"
-    ].join("");
+    // SECURE: Create loading message via DOM methods to prevent XSS
+    results.innerHTML = "";
+    const loadingDiv = document.createElement("div");
+    loadingDiv.className = "alert alert-info mx-auto mt-4";
+    loadingDiv.style.maxWidth = "800px";
+    loadingDiv.textContent = `Loading map for ${city}...`;
+    results.appendChild(loadingDiv);
 
     if (!GMAP_API_KEY || GMAP_API_KEY === "YOUR_API_KEY") {
-        window.location.href = "404.html"; // Invalid API redirects to 404
+        window.location.href = "404.html";
         return;
     }
 
     try {
         results.innerHTML = "";
-        mapContainer = document.createElement("div");
-        mapContainer.className = "ratio ratio-16x9 mb-3";
-        iframe = document.createElement("iframe");
-        q = window.encodeURIComponent(city);
 
+        const mapContainer = document.createElement("div");
+        mapContainer.className = "ratio ratio-16x9 mb-3";
+
+        const iframe = document.createElement("iframe");
+        const q = window.encodeURIComponent(city);
+
+        // SECURE: Use correct, secure Google Maps Embed API endpoint
         iframe.src = [
             "https://www.google.com/maps/embed/v1/search?key=",
             GMAP_API_KEY,
@@ -378,6 +353,7 @@ window.showCityResults = function (city) {
         ].join("");
 
         iframe.allowFullscreen = true;
+
         mapContainer.appendChild(iframe);
         results.appendChild(mapContainer);
         renderAttractionList(city);
@@ -388,16 +364,10 @@ window.showCityResults = function (city) {
     }
 };
 
-GMAP_API_KEY = "AIzaSyBt7x_-AgQk4-R38JyMX6Y7RCMnZYqzBpE";
-
 document.addEventListener("DOMContentLoaded", function () {
-    "use strict";
-    var cityInput;
-    var cityName;
-    var destList = document.getElementById("destList");
-    var params = new window.URLSearchParams(window.location.search);
-    var searchForm = document.getElementById("searchForm");
-    var validation;
+    const destList = document.getElementById("destList");
+    const searchForm = document.getElementById("searchForm");
+    const params = new URLSearchParams(window.location.search);
 
     setActiveNavLink();
     renderRecentSearches();
@@ -408,70 +378,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (searchForm) {
         searchForm.addEventListener("submit", function (e) {
-            var input = document.getElementById("cityInput");
-            var val;
-
             e.preventDefault();
-            val = input.value.trim();
-            validation = isValidSearchQuery(val);
+            const input = document.getElementById("cityInput");
+            const val = input.value.trim();
+            const validation = isValidSearchQuery(val);
 
-            // CHANGED: Instead of redirecting to 404.html, show the dynamic error message!
             if (!validation.valid) {
                 displaySearchError(validation.message);
                 return;
             }
-            
+
             baseCity = val;
             saveRecentSearch(val);
             renderRecentSearches();
-
             window.showCityResults(val);
         });
     }
 
     if (destList) {
         sampleCities.forEach(function (city) {
-            var col = document.createElement("div");
-            var content = "";
-
+            const col = document.createElement("div");
             col.className = "col-12 col-sm-6 col-md-4 mb-4";
 
-            content += "<div class='card h-100 card-destination'>";
-            content += "<img src='" + city.image + "' class='card-img-top' ";
-            content += "alt='" + city.alt + "'>";
-            content += "<div class='card-body d-flex flex-column'>";
-            content += "<h5 class='card-title text-center fw-bold'>";
-            content += city.name + "</h5>";
-            content += "<button class='btn btn-primary mt-auto ";
-            content += "search-btn w-100 fw-bold'>Explore</button></div></div>";
-
-            col.innerHTML = content;
+            col.innerHTML = [
+                "<div class='card h-100 card-destination'>",
+                "<img src='", city.image, "' class='card-img-top' ",
+                "alt='", city.alt, "'>",
+                "<div class='card-body d-flex flex-column'>",
+                "<h5 class='card-title text-center fw-bold'>",
+                city.name, "</h5>",
+                "<button class='btn btn-primary mt-auto search-btn ",
+                "w-100 fw-bold'>Explore</button>",
+                "</div></div>"
+            ].join("");
 
             col.querySelector(".search-btn").addEventListener(
                 "click",
                 function () {
-                    var encoded = window.encodeURIComponent(city.name);
-                    window.location.href = "index.html?city=" + encoded;
+                    const encoded = window.encodeURIComponent(city.name);
+                    window.location.href = `index.html?city=${encoded}`;
                 }
             );
+
             destList.appendChild(col);
         });
     }
 
     if (params.has("city")) {
-        cityName = params.get("city");
-        validation = isValidSearchQuery(cityName);
-        
-        // CHANGED: Also replaced the 404 URL fallback for parameter loading
+        const cityName = params.get("city");
+        const validation = isValidSearchQuery(cityName);
+
         if (!validation.valid) {
             displaySearchError(validation.message);
             return;
         }
-        
-        cityInput = document.getElementById("cityInput");
+
+        const cityInput = document.getElementById("cityInput");
         if (cityInput) {
             cityInput.value = cityName;
         }
+
         baseCity = cityName;
         window.showCityResults(cityName);
     }
