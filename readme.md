@@ -142,8 +142,6 @@ The website wireframes were created using Balsamiq and can be viewed below.
 #### ![Desktop - Home Page Map](<assets/images/Desktop-Screenshot-Home-Map.png>)
 ### Home Page - Attraction Suggestions
 #### ![Desktop - Home Page - Location Suggestions](<assets/images/Desktop-Screenshot-Home-LocationSuggestionList.png>)
-### Home Page - Footer
-#### ![Desktop - Home Page Footer](<assets/images/Desktop-Screenshot-Home-Footer.png>)
 ### Popular Destinations Page
 #### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-1.png>)
 #### ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-2.png>)
