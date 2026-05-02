@@ -77,8 +77,6 @@ const sampleCities = [
 
 /**
  * Validates search input to prevent empty, short, or invalid formats.
- * @param {string} query - The search string
- * @returns {Object} Object containing validity boolean and error message
  */
 function isValidSearchQuery(query) {
     if (!query || query.trim().length === 0) {
@@ -124,7 +122,6 @@ function isValidSearchQuery(query) {
     };
 }
 
-// Populate a datalist element with suggestion options
 function populateSuggestions(list) {
     const data = document.getElementById("citySuggestions");
     if (!data) {
@@ -139,10 +136,6 @@ function populateSuggestions(list) {
     });
 }
 
-/**
- * Load recent searches from localStorage
- * @returns {Array} Array of recent city searches
- */
 function getRecentSearches() {
     const stored = localStorage.getItem("recentSearches");
     return (
@@ -152,10 +145,6 @@ function getRecentSearches() {
     );
 }
 
-/**
- * Save a search to recent searches (max 5 items)
- * @param {string} city - City name to save
- */
 function saveRecentSearch(city) {
     if (!city) {
         return;
@@ -170,9 +159,6 @@ function saveRecentSearch(city) {
     localStorage.setItem("recentSearches", JSON.stringify(recent));
 }
 
-/**
- * Renders the recent searches list into the UI
- */
 function renderRecentSearches() {
     const container = document.getElementById("recentSearchesContainer");
     const list = document.getElementById("recentSearchesList");
@@ -294,10 +280,6 @@ function handleMapError() {
     window.location.href = "404.html";
 }
 
-/**
- * Displays a custom error message to the user when search validation fails
- * @param {string} message - The error message to show
- */
 function displaySearchError(message) {
     const results = document.getElementById("results");
     if (!results) {
@@ -322,7 +304,6 @@ window.showCityResults = function (city) {
         return;
     }
 
-    // SECURE: Create loading message via DOM methods to prevent XSS
     results.innerHTML = "";
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "alert alert-info mx-auto mt-4";
@@ -344,7 +325,6 @@ window.showCityResults = function (city) {
         const iframe = document.createElement("iframe");
         const q = window.encodeURIComponent(city);
 
-        // SECURE: Use correct, secure Google Maps Embed API endpoint
         iframe.src = [
             "https://www.google.com/maps/embed/v1/search?key=",
             GMAP_API_KEY,
@@ -352,6 +332,8 @@ window.showCityResults = function (city) {
             q
         ].join("");
 
+        // IMPLEMENTED: Lazy loading for the Google Map iframe
+        iframe.loading = "lazy";
         iframe.allowFullscreen = true;
 
         mapContainer.appendChild(iframe);
@@ -401,9 +383,11 @@ document.addEventListener("DOMContentLoaded", function () {
             col.className = "col-12 col-sm-6 col-md-4 mb-4";
 
             col.innerHTML = [
-                "<div class='card h-100 card-destination'>",
-                "<img src='", city.image, "' class='card-img-top' ",
-                "alt='", city.alt, "'>",
+                "<div class='card h-100 card-destination'>",
+                // IMPLEMENTED: Added loading='lazy' to the image tag
+                "<img src='", city.image,
+                "' class='card-img-top' loading='lazy' ",
+                "alt='", city.alt, "'>",
                 "<div class='card-body d-flex flex-column'>",
                 "<h5 class='card-title text-center fw-bold'>",
                 city.name, "</h5>",
