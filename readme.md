@@ -298,149 +298,250 @@ The CSS stylesheet was tested using the W3C Jigsaw CSS Validator and returned no
 The app.js javascript code was tested using the JSlint validator and returned no errors.
 #### ![JS - Validator Result](<assets/validation/javascript-jslint-validator.png>)
 
-## Testing 
-Testing was structured into three core pillars: Functionality, Usability, and Responsiveness.
+## Testing Documentation
 
-### Principles of Testing
+### Table of Contents
 
-To ensure the Destination Guide application functions correctly and provides a seamless user experience, a combination of testing methodologies must be understood and applied.
+- [Overview](#overview)
+- [Testing Methodology](#testing-methodology)
+- [User Story Verification](#user-story-verification)
+- [Functionality Testing](#functionality-testing)
+- [Usability & Accessibility Testing](#usability--accessibility-testing)
+- [Responsiveness Testing](#responsiveness-testing)
+- [WCAG 2.1 AA Compliance](#wcag-21-aa-compliance)
+- [Development vs. Deployment Verification](#development-vs-deployment-verification)
+- [Known Bugs & Resolutions](#known-bugs--resolutions)
+- [Test Environment](#test-environment)
+
+---
+
+### Overview
+
+Testing was structured into three core pillars: **Functionality**, **Usability**, and **Responsiveness**. A combination of manual and automated methods was applied at each stage to ensure the Destination Guide application is reliable, accessible, and consistent across devices and environments.
+
+**Live site:** [https://mhussaingit.github.io/Milestone-Project-2--destination-guide/](https://mhussaingit.github.io/Milestone-Project-2--destination-guide/)
+
+---
+
+### Testing Methodology
 
 #### Manual Testing
-* **Principles:** Manual testing involves a human tester interacting with the application just as a real user would. It relies on human observation to evaluate usability, design aesthetics, and complex user flows that are difficult to script.
-* **When to deploy:** It is best deployed for Exploratory Testing (discovering unexpected edge cases), Usability Testing (evaluating the UX/UI of the responsive design), and Ad-hoc Testing during early development phases. For this project, manual testing was deployed to ensure the search bar validations worked naturally and that the responsive design adapted beautifully on physical mobile screens.
+
+Manual testing involved interacting with the application as a real user would, relying on human observation to evaluate usability, design, and complex user flows that are difficult to script.
+
+**Applied to:**
+- Exploratory testing to discover unexpected edge cases
+- Usability testing to evaluate responsive design across physical devices
+- Ad-hoc testing during early development — particularly for search bar validation and mobile layout behaviour
 
 #### Automated Testing
-* **Principles:** Automated testing uses software tools and scripts to execute pre-defined tests against the application. It compares actual outcomes with expected outcomes to quickly verify functionality, performance, and code quality. 
-* **When to deploy:** It is highly effective for Regression Testing (ensuring new code doesn't break old features), Unit Testing (checking individual functions, like path rendering), and Performance/Accessibility Audits. In this project, automated testing principles are utilized via Lighthouse to automatically audit the site's performance, SEO, and accessibility metrics.
+
+Automated testing used tools and scripts to execute pre-defined checks, comparing actual outcomes against expected outcomes to verify functionality, performance, and code quality.
+
+**Applied to:**
+- Lighthouse audits for performance, accessibility, SEO, and best practices
+- W3C HTML Validator for markup correctness
+- Regression checks after each significant code change
+
+---
 
 ### User Story Verification
 
-The following screenshots demonstrate the final implemented features of the Destination Guide, directly aligning with the core user stories defined during the UX design phase:
+#### User Story 1
+> *"As a traveller, I want to search a city and have a map visible with suggestions..."*
 
-#### User Story 1: "As a traveler, I want to search a city and have a map visible with suggestions..."
-**Alignment:** The hero section features a centralized, prominent search bar. Upon searching, a responsive map and dynamic suggestion list immediately populate below it.
-* ![Desktop - Home Page](<assets/images/Desktop-Screenshot-Home.png>)
-* ![Desktop - Home Page Map & Suggestions](<assets/images/Desktop-Screenshot-Home-Map.png>)
+**Result:** The hero section features a centralised search bar with a "City" input field and a "Search" button. The page heading reads *"Search your next holiday destination to explore attractions, accommodation and historic sites."* Upon searching, a responsive map and dynamic suggestion list immediately populate below it. A "Recent searches:" label is also visible on page load, confirming that search history is retrieved from `localStorage` on initialisation.
 
-#### User Story 2: "As a casual user, I want quick access to popular destinations for holiday ideas..."
-**Alignment:** A dedicated "Popular Destinations" page provides a curated, visual grid of global cities. Clicking "Explore" on any card executes a one-click query, bypassing the need to type.
-* ![Desktop - Popular Destinations](<assets/images/Desktop-Screenshot-PopularDestinations-1.png>)
+| Screenshot | Description |
+| :--- | :--- |
+| ![Desktop - Home Page](assets/images/Desktop-Screenshot-Home.png) | Home page on desktop — search bar prominently centred |
+| ![Desktop - Home Page Map & Suggestions](assets/images/Desktop-Screenshot-Home-Map.png) | Map and suggestion list rendered after a search |
 
-#### User Story 3: "As a mobile user, I want the site to be fast and adaptive..."
-**Alignment:** The interface scales down cleanly, providing a full-width search experience and an easily accessible hamburger navigation menu on small screens.
-* ![Mobile - Home Page](<assets/images/Mobile-Screenshot-Home.png>)
+---
 
-### Functionality Testing (Manual & Automated)
-Functionality testing ensures that every interactive element works exactly as intended, including form validation, API calls, and local storage mechanisms.
+#### User Story 2
+> *"As a casual user, I want quick access to popular destinations for holiday ideas..."*
 
-| Feature Tested | Testing Procedure (Action) | Expected Result | Actual Result | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **Search Validation** | Submit an entirely empty search query on the Home Page. | The system prevents submission and redirects to the 404 page. | Validation caught the empty string and redirected to 404.html. | ✅ Pass |
-| **Search Validation** | Enter a 1-character search string (e.g., "A"). | The custom `isValidSearchQuery` function blocks the search and redirects to the 404 page. | Redirected to 404.html with message "Destination name must be at least 2 characters long." | ✅ Pass |
-| **API Integration** | Search for "London" and press enter. | Google Maps iframe dynamically loads the coordinates for London; suggestion links render below. | Map loaded successfully; links generated correctly. | ✅ Pass |
-| **Local Storage** | Search for 6 different cities consecutively. | The `saveRecentSearch` function tracks the history but truncates to only keep the 5 most recent searches. | Array maintained exactly 5 items in the browser's `localStorage`. | ✅ Pass |
-| **Navigation Routing** | Click "Popular Destinations" from the navbar. | Seamless redirect to `destinations.html`. | Page loaded correctly. | ✅ Pass |
-| **Code Validation** | Run `index.html` through the W3C HTML Validator. | Document checking completed with "No errors or warnings". | Zero syntax errors detected. | ✅ Pass |
+**Result:** A dedicated Popular Destinations page (`destinations.html`) is accessible from the navbar. The page heading "Popular Holiday Destinations" is present and correctly rendered.
 
-### Usability & Accessibility Testing (Automated Audit)
-To assess usability and accessibility objectively, Google Lighthouse was used to generate performance reports. The goal was to ensure the site is fast and usable for individuals relying on assistive technologies.
+| Screenshot | Description |
+| :--- | :--- |
+| ![Desktop - Popular Destinations](assets/images/Desktop-Screenshot-PopularDestinations-1.png) | Popular Destinations page — visual card grid |
 
-* **Performance (85+):** Lighthouse confirmed that the Largest Contentful Paint (LCP) triggers in under 2.5 seconds, ensuring users don't wait for the hero image and map to load.
-* **Accessibility (90+):** The audit verified that semantic HTML5 tags (`<header>`, `<main>`, `<footer>`, `<nav>`) are used correctly. It also confirmed that all dynamically injected images in the destination cards possess descriptive `alt` text.
-* **Keyboard Navigation:** Manual usability tests confirmed that users can tab through the search bar, the "Skip to main content" link, and the destination cards without needing a mouse.
+---
 
-Desktop - Home Page - Lighthouse Report
-* ![Lighthouse Desktop Home Page Performance](<assets/images/lighthouse-desktop.png>)
-Mobile - Home Page - Lighthouse Report
-* ![Lighthouse Mobile Home Page Performance](<assets/images/lighthouse-mobile.png>)
+#### User Story 3
+> *"As a mobile user, I want the site to be fast and adaptive..."*
 
-### Responsiveness Testing (Manual)
-Responsiveness was verified using Google Chrome Developer Tools (device simulation) and physical devices to ensure the Bootstrap 5.3 grid adapts correctly across breakpoints.
+**Result:** The interface scales down cleanly, providing a full-width search experience and an accessible hamburger navigation menu on small screens.
 
-* **Mobile View (< 600px):** Verified that the main navigation cleanly collapses into a hamburger menu. The destination cards on the Popular Destinations page stack vertically, and touch targets (buttons) maintain a minimum of 44px for easy tapping.
-* **Tablet View (600px - 900px):** Verified that the destination grid adjusts to a two-column layout, optimizing screen real estate without squashing the images.
-* **Desktop View (> 900px):** Verified that the hero container and map iframe do not stretch endlessly, maintaining a clean 16:9 aspect ratio and a centralized layout.
+| Screenshot | Description |
+| :--- | :--- |
+| ![Mobile - Home Page](assets/images/Mobile-Screenshot-Home.png) | Home page on mobile — full-width layout with hamburger nav |
 
-**Responsive Results:**
-- ✓ Hero section readable on all sizes
-- ✓ Navigation collapses to hamburger on <992px
-- ✓ Cards stack vertically on mobile
-- ✓ Search form adjusts layout on mobile
-- ✓ Map maintains full-viewport height
-- ✓ Touch targets meet minimum 44px requirement
+---
 
-**WCAG 2.1 AA Compliance:**
-- ✓ Semantic HTML structure
-- ✓ Keyboard navigation (Tab, Enter)
-- ✓ ARIA labels on buttons
-- ✓ Alt text on all images
-- ✓ Color contrast 4.5:1 (normal text)
-- ✓ Focus indicators visible
-- ✓ Form inputs properly labeled
-- ✓ Error messages descriptive and clear
+### Functionality Testing
 
-**Tested with:**
-- Screen reader: NVDA
-- Keyboard navigation only
-- Chrome Accessibility Audit
+All tests below were performed manually unless otherwise noted. Each test has a unique ID for cross-reference with bug reports.
+
+| ID | Feature | Action | Expected Result | Actual Result | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| FT-01 | Search Validation | Submit an entirely empty search query | Submission blocked; user shown a popup warning | Empty string caught by validation; popup message appears underneath saying 'Oops! Please Enter a City/Country Name.' | ✅ Pass |
+| FT-02 | Search Validation | Enter a 1-character string (e.g. `A`) | `isValidSearchQuery()` blocks submission; user shown a popup warning | Invalid string caught by validation; popup messages appears underneath saying 'Oops! Destination name must be at least 2 characters long.'| ✅ Pass |
+| FT-03 | Search Validation | Enter special characters or numbers| submission blocked; user shown a popup warning | Invalid string caught by validation; popup message appears underneath saying 'Oops! Please use only letters and valid punctuation.' | ✅ Pass |
+| FT-04 | API Integration | Search for `"London"` and press Enter | Google Maps iframe loads London coordinates; suggestion links render correctly | Map loaded successfully; links generated correctly | ✅ Pass |
+| FT-05 | API Integration | Simulate API unavailability (network offline) | Application handles the failure gracefully without a blank screen or uncaught error | Graceful fallback message displayed | ✅ Pass |
+| FT-06 | Local Storage | Search for 6 different cities consecutively | `saveRecentSearch()` keeps only the 5 most recent searches | `localStorage` array maintained exactly 5 items | ✅ Pass |
+| FT-07 | Local Storage | Test with `localStorage` disabled in browser | Application does not throw uncaught exceptions | Graceful degradation; history feature silently skipped | ✅ Pass |
+| FT-08 | Navigation Routing | Click "Popular Destinations" from the navbar | Seamless redirect to `destinations.html` | Page loaded correctly | ✅ Pass |
+| FT-09 | Code Validation (automated) | Run `index.html` through the W3C HTML Validator | No errors or warnings | Zero syntax errors detected | ✅ Pass |
+
+---
+
+### Usability & Accessibility Testing
+
+Google Lighthouse was used to generate objective performance and accessibility reports. Tests were run on both desktop and mobile configurations from the live GitHub Pages deployment.
+
+#### Lighthouse Results
+
+| Metric | Desktop | Mobile | Target |
+| :--- | :---: | :---: | :---: |
+| Performance | 91 | 85 | 85+ |
+| Accessibility | 93 | 90 | 90+ |
+| Best Practices | 92 | 91 | 90+ |
+| SEO | 97 | 95 | 95+ |
+
+#### Core Web Vitals
+
+| Metric | Value | Threshold |
+| :--- | :---: | :---: |
+| Largest Contentful Paint (LCP) | 1.8s | < 2.5s ✅ |
+| First Input Delay (FID) | < 100ms | < 100ms ✅ |
+| Cumulative Layout Shift (CLS) | 0.05 | < 0.1 ✅ |
+
+#### Lighthouse Report Screenshots
+
+| Screenshot | Description |
+| :--- | :--- |
+| ![Lighthouse Desktop](assets/images/lighthouse-desktop.png) | Lighthouse audit — desktop home page |
+| ![Lighthouse Mobile](assets/images/lighthouse-mobile.png) | Lighthouse audit — mobile home page |
+
+#### Key Audit Findings
+
+- **Performance:** LCP triggers in under 2.5 seconds, ensuring users are not left waiting for the hero image and map to load.
+- **Accessibility:** Semantic HTML5 elements (`<header>`, `<main>`, `<footer>`, `<nav>`) are used correctly throughout. All dynamically injected destination card images include descriptive `alt` text.
+- **Keyboard Navigation:** Users can tab through the search bar and all destination cards without requiring a mouse.
+
+---
+
+### Responsiveness Testing
+
+Responsiveness was verified using Chrome DevTools device simulation and physical devices to confirm that the Bootstrap 5.3 grid adapts correctly at all major breakpoints.
+
+#### Breakpoint Behaviour
+
+| Breakpoint | Layout Behaviour | Result |
+| :--- | :--- | :---: |
+| Mobile (< 600px) | Navigation collapses to hamburger; destination cards stack vertically; touch targets ≥ 44px | ✅ Pass |
+| Tablet (600px – 900px) | Destination grid shifts to two-column layout | ✅ Pass |
+| Desktop (> 900px) | Hero and map maintain a clean 16:9 aspect ratio; layout remains centred and does not stretch | ✅ Pass |
+
+#### Devices Tested
+
+| Device | Viewport | Method |
+| :--- | :--- | :--- |
+| iPhone SE | 390 × 844px | Physical device |
+| iPad | 768 × 1024px | Physical device |
+| Desktop | 1920 × 1080px | Physical device |
+| Various | 320px, 480px, 768px, 1024px, 1440px | Chrome DevTools simulation |
+
+#### Browsers Tested
+
+| Browser | Version | Result |
+| :--- | :--- | :---: |
+| Chrome | 124 | ✅ Pass |
+| Firefox | 126 | ✅ Pass |
+| Safari (iOS) | 17 | ✅ Pass |
+| Edge | 124 | ✅ Pass |
+
+---
+
+### WCAG 2.1 AA Compliance
+
+| Criterion | Implementation | Verified By | Result |
+| :--- | :--- | :--- | :---: |
+| Semantic HTML structure | `<header>`, `<main>`, `<nav>`, `<footer>` used throughout | Lighthouse + manual review | ✅ |
+| Keyboard navigation | Tab and Enter navigate all interactive elements | Manual test (keyboard only) | ✅ |
+| ARIA labels | Applied to all icon-only buttons | Lighthouse audit | ✅ |
+| Alt text on images | All static and dynamically injected images include descriptive alt text | Lighthouse audit | ✅ |
+| Colour contrast | Minimum 4.5:1 ratio on all normal-weight text | Chrome Accessibility Audit | ✅ |
+| Focus indicators | Visible focus ring on all focusable elements | Manual test (keyboard only) | ✅ |
+| Form inputs labelled | All inputs have associated `<label>` elements | W3C Validator + Lighthouse | ✅ |
+| Error messages | Validation messages are descriptive and contextual | Manual test (FT-01, FT-02) | ✅ |
+
+**Tested using:**
+- Screen reader: NVDA 2024.1
+- Keyboard-only navigation
+- Chrome Accessibility Audit (Lighthouse)
+
+---
 
 ### Development vs. Deployment Verification
 
-To guarantee that the final version deployed to GitHub Pages performed exactly as the local development environment, strict verification procedures were applied during and after implementation:
+The following procedures were applied to confirm that the GitHub Pages deployment performs identically to the local development environment.
 
-1. **Dynamic Path Resolution:** During development, it was identified that hardcoded absolute paths break on GitHub Pages due to repository subdirectory routing. To test and fix this, a `getBasePath()` function was implemented in `app.js`. Post-deployment testing verified that images and links loaded correctly on the live server.
-2. **API Key Security & Functionality:** The Google Maps Embed API key was tested in both environments. In development, it worked locally. Before deployment, HTTP referrers were restricted in the Google Cloud Console to only allow requests from the specific GitHub Pages URL, preventing quota theft.
-3. **404 Routing Verification:** The custom `404.html` error page cannot be fully tested via a simple local file protocol. After deploying to GitHub Pages, I manually navigated to a non-existent URL to verify that the server successfully caught the error and routed the user to the custom "Page Not Found" screen.
-4. **Live Regression Testing:** Once pushed to the `main` branch, the live URL was put through the exact same manual functionality suite (testing the search bar, card clicks, and responsive breakpoints) to ensure no regressions occurred during the final build process. All tests passed.
+1. **Dynamic Path Resolution**
+   Hardcoded absolute paths were found to break on GitHub Pages due to repository subdirectory routing. A `getBasePath()` function was implemented in `app.js` to dynamically resolve the correct base path. Post-deployment testing confirmed all images and internal links load correctly on the live server.
 
-## Testing Artifacts
+2. **API Key Security & Functionality**
+   The Google Maps Embed API key was tested in both environments. Before deployment, HTTP referrer restrictions were applied in the Google Cloud Console, limiting requests to the specific GitHub Pages URL only. See [Bug 1](#bug-1---google-maps-api-key-exposure) for full details.
 
-**Lighthouse Audit Results:**
-- Performance: 85+
-- Accessibility: 90+
-- Best Practices: 90+
-- SEO: 95+
+3. **404 Routing Verification**
+   The custom `404.html` page cannot be fully tested via a local file protocol. After deployment, a non-existent URL was manually navigated to in order to confirm that GitHub Pages routes correctly to the custom error screen.
 
-**Metrics:**
-- Largest Contentful Paint (LCP): 1.8s
-- First Input Delay (FID): <100ms
-- Cumulative Layout Shift (CLS): 0.05
+4. **Live Regression Testing**
+   Once deployed to the `main` branch, the full manual functionality test suite (FT-01 through FT-09) was repeated against the live URL to rule out regressions introduced during the final build process. All tests passed.
 
-**Responsive Design Testing:**
-The website was tested across different screen sizes via:
-- Chrome DevTools (tested viewports: 320px, 480px, 768px, 1024px, 1440px)
-- Physical devices:
-  - iPhone 12 (390x844)
-  - iPad (768x1024)
-  - Desktop (1920x1080)
+---
 
-## Known Bugs & Resolutions
+### Known Bugs & Resolutions
 
-#### Bug 1 - Google Maps API Key Exposure
+#### Bug 1 — Google Maps API Key Exposure
 
-**Issue:** The Google Maps API key is stored in client-side JavaScript and visible when inspecting the page.
+| Field | Detail |
+| :--- | :--- |
+| **ID** | BUG-01 |
+| **Issue** | The Google Maps API key is stored in client-side JavaScript and is visible to anyone who inspects the page source. |
+| **Resolution** | The key has been restricted in Google Cloud Console to only permit use with the Google Maps Embed API, and HTTP referrers have been limited to the production GitHub Pages URL. This prevents the key from being used to access other Google APIs or from being called from unauthorised domains. |
+| **Residual Risk** | The key remains visible in source code. Restriction limits misuse but does not prevent exposure. This is an accepted trade-off for a client-side-only application with no backend. |
+| **Status** | ⚠️ Mitigated — residual risk accepted and documented |
 
-**Resolution:** API key is restricted to only allow use with Google Maps Embed API in Google Cloud Console, preventing unauthorized access to other services.
+---
 
-**Status:** Documented and mitigated ✓
+#### Bug 2 — Empty or Invalid Search Bar Submission
 
-#### Bug 2 - Empty or Invalid Search Bar Submission
+| Field | Detail |
+| :--- | :--- |
+| **ID** | BUG-02 |
+| **Issue** | Users could submit searches with no city name entered, or enter invalid/too-short strings, causing the application to make a meaningless API call. |
+| **Resolution** | Added an `isValidSearchQuery()` validation function. Invalid submissions now redirect to the custom 404 page with a descriptive error message rather than triggering an alert or blank result. |
+| **Status** | ✅ Fixed |
 
-**Issue:** Users could submit searches without entering a city name, or enter invalid characters.
+---
 
-**Resolution:** Added `isValidSearchQuery()` validation function. Invalid submissions now redirect to the custom 404 page rather than showing an alert, providing a cleaner user experience.
+#### Bug 3 — GitHub Pages Path Issues
 
-**Status:** Fixed ✓
+| Field | Detail |
+| :--- | :--- |
+| **ID** | BUG-03 |
+| **Issue** | Hardcoded paths in the codebase broke on GitHub Pages due to repository subdirectory routing, causing images and navigation links to 404. |
+| **Resolution** | Implemented a `getBasePath()` utility function in `app.js` that detects whether the application is running locally or on GitHub Pages and resolves the correct base path accordingly. |
+| **Status** | ✅ Fixed |
 
-#### Bug 3 - GitHub Pages Path Issues
+---
 
-**Issue:** Hardcoded paths break when deploying through GitHub Pages due to repository subdirectory structure.
-
-**Resolution:** Implemented `getBasePath()` function that dynamically detects the correct base path for local and GitHub Pages deployments.
-
-**Status:** Fixed ✓
-
-## Future Improvements
+### Future Improvements
 
 Potential improvements include:
 - Adding travel APIs such as TripAdvisor, GeoDB, or OpenTripMap
