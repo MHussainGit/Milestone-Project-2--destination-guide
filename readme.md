@@ -374,7 +374,8 @@ Automated testing used tools and scripts to execute pre-defined checks, comparin
 | Screenshot | Description |
 | :--- | :--- |
 | ![Desktop - Home Page](assets/images/Desktop-Screenshot-Home.png) | Home page on desktop — search bar prominently centred |
-| ![Desktop - Home Page Map & Suggestions](assets/images/Desktop-Screenshot-Home-Map.png) | Map and suggestion list rendered after a search |
+| ![Desktop - Home Page Map](assets/images/Desktop-Screenshot-Home-Map.png) | Map rendered after a search |
+| ![Desktop - Home Page Suggestion List](assets/images/Desktop-Screenshot-Home-LocationSuggestionList.png) | Map rendered after a search |
 
 ---
 
