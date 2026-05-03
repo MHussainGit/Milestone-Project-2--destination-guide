@@ -426,25 +426,25 @@ Google Lighthouse was used to generate objective performance and accessibility r
 
 | Metric | Desktop | Mobile | Target |
 | :--- | :---: | :---: | :---: |
-| Performance | 91 | 85 | 85+ |
-| Accessibility | 93 | 90 | 90+ |
-| Best Practices | 92 | 91 | 90+ |
-| SEO | 97 | 95 | 95+ |
+| Performance | 99 | 97 | 85+ |
+| Accessibility | 100 | 100 | 90+ |
+| Best Practices | 100 | 100 | 90+ |
+| SEO | 100 | 100 | 95+ |
 
 #### Core Web Vitals
 
 | Metric | Value | Threshold |
 | :--- | :---: | :---: |
-| Largest Contentful Paint (LCP) | 1.8s | < 2.5s ✅ |
+| Largest Contentful Paint (LCP) | 2.1s | < 2.5s ✅ |
 | First Input Delay (FID) | < 100ms | < 100ms ✅ |
-| Cumulative Layout Shift (CLS) | 0.05 | < 0.1 ✅ |
+| Cumulative Layout Shift (CLS) | 0.025 | < 0.1 ✅ |
 
 #### Lighthouse Report Screenshots
 
 | Screenshot | Description |
 | :--- | :--- |
-| ![Lighthouse Desktop](assets/images/lighthouse-desktop.png) | Lighthouse audit — desktop home page |
-| ![Lighthouse Mobile](assets/images/lighthouse-mobile.png) | Lighthouse audit — mobile home page |
+| ![Lighthouse Desktop Home Page](assets/validation/lighthouse-desktop-home.png) | Lighthouse audit — desktop Home page |
+| ![Lighthouse Mobile Home Page](assets/validation/lighthouse-mobile-home.png) | Lighthouse audit — mobile Home page |
 
 #### Key Audit Findings
 
@@ -544,7 +544,7 @@ The following procedures were applied to confirm that the GitHub Pages deploymen
 | :--- | :--- |
 | **ID** | BUG-02 |
 | **Issue** | Users could submit searches with no city name entered, or enter invalid/too-short strings, causing the application to make a meaningless API call. |
-| **Resolution** | Added an `isValidSearchQuery()` validation function. Invalid submissions now redirect to the custom 404 page with a descriptive error message rather than triggering an alert or blank result. |
+| **Resolution** | Added an `isValidSearchQuery()` validation function. Invalid submissions now trigger a popup with a descriptive error message prompting the user to enter a valid search query|
 | **Status** | ✅ Fixed |
 
 ---
