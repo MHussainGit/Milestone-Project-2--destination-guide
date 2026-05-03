@@ -437,7 +437,7 @@ Google Lighthouse was used to generate objective performance and accessibility r
 | :--- | :---: | :---: |
 | Largest Contentful Paint (LCP) | 2.1s | < 2.5s ✅ |
 | First Input Delay (FID) | < 100ms | < 100ms ✅ |
-| Cumulative Layout Shift (CLS) | 0.025 | < 0.1 ✅ |
+| Cumulative Layout Shift (CLS) | 0.045 | < 0.1 ✅ |
 
 #### Lighthouse Report Screenshots
 
