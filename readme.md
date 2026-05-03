@@ -35,9 +35,9 @@ A website designed to help people search for landmarks, attractions, restaurants
     - [User Story 3](#user-story-3)
   - [Functionality Testing](#functionality-testing)
   - [Usability & Accessibility Testing](#usability--accessibility-testing)
+    - [Lighthouse Report Screenshots](#lighthouse-report-screenshots)
     - [Lighthouse Results](#lighthouse-results)
     - [Core Web Vitals](#core-web-vitals)
-    - [Lighthouse Report Screenshots](#lighthouse-report-screenshots)
     - [Key Audit Findings](#key-audit-findings)
   - [Responsiveness Testing](#responsiveness-testing)
     - [Breakpoint Behaviour](#breakpoint-behaviour)
@@ -423,6 +423,13 @@ All tests below were performed manually unless otherwise noted. Each test has a 
 
 Google Lighthouse was used to generate objective performance and accessibility reports. Tests were run on both desktop and mobile configurations from the live GitHub Pages deployment.
 
+#### Lighthouse Report Screenshots
+
+| Screenshot | Description |
+| :--- | :--- |
+| ![Lighthouse Desktop Home Page](assets/validation/lighthouse-desktop-home.png) | Lighthouse audit — desktop Home page |
+| ![Lighthouse Mobile Home Page](assets/validation/lighthouse-mobile-home.png) | Lighthouse audit — mobile Home page |
+
 #### Lighthouse Results
 
 | Metric | Desktop | Mobile | Target |
@@ -439,13 +446,6 @@ Google Lighthouse was used to generate objective performance and accessibility r
 | Largest Contentful Paint (LCP) | 2.1s | < 2.5s ✅ |
 | First Input Delay (FID) | < 100ms | < 100ms ✅ |
 | Cumulative Layout Shift (CLS) | 0.045 | < 0.1 ✅ |
-
-#### Lighthouse Report Screenshots
-
-| Screenshot | Description |
-| :--- | :--- |
-| ![Lighthouse Desktop Home Page](assets/validation/lighthouse-desktop-home.png) | Lighthouse audit — desktop Home page |
-| ![Lighthouse Mobile Home Page](assets/validation/lighthouse-mobile-home.png) | Lighthouse audit — mobile Home page |
 
 #### Key Audit Findings
 
