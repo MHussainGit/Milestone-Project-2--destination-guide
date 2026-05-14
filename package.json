@@ -1,0 +1,9 @@
+{
+  "name": "destination-guide",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Destination Guide site validation and deployment comparison scripts.",
+  "scripts": {
+    "test:deploy-compare": "node verify-deployment.js"
+  }
+}

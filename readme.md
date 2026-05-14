@@ -361,6 +361,11 @@ Automated testing used tools and scripts to execute pre-defined checks, comparin
 - Lighthouse audits for performance, accessibility, SEO, and best practices
 - W3C HTML Validator for markup correctness
 - Regression checks after each significant code change
+- Deployment consistency checks between local source and GitHub Pages production output, including HTML, CSS, and JavaScript files
+
+**Deployment verification:**
+- Run `npm run test:deploy-compare` to compare local HTML, CSS, and JS files against the deployed GitHub Pages pages
+- Set `DEPLOY_URL` to a custom deployment URL if needed, e.g. `DEPLOY_URL=https://example.com/ npm run test:deploy-compare`
 
 ---
 
