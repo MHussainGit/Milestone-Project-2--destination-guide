@@ -101,6 +101,22 @@ function isValidSearchQuery(query) {
         };
     }
 
+    const vowelCount = (query.match(/[aeiouy\u00C0-\u017F]/gi) || []).length;
+    if (vowelCount === 0) {
+        return {
+            message: "Please enter a real city or country name.",
+            valid: false
+        };
+    }
+
+    const longConsonantRun = /[^aeiouy\W\d_]{4,}/i.test(query);
+    if (longConsonantRun) {
+        return {
+            message: "Please enter a valid destination name.",
+            valid: false
+        };
+    }
+
     const chars = query.split("");
     const isGibberish = chars.some(function (char, index, arr) {
         const match1 = char === arr[index + 1];
