@@ -1,4 +1,4 @@
-﻿﻿/*global window, document, localStorage, URLSearchParams */
+﻿﻿/*global window, document, localStorage, URLSearchParams, console, fetch */
 
 /*
 app.js - A custom JavaScript for Destination Guide
@@ -101,7 +101,12 @@ function isValidSearchQuery(query) {
         };
     }
 
-    const vowelCount = (query.match(/[aeiouy\u00C0-\u017F]/gi) || []).length;
+    const matches = query.match(/[aeiouy\u00C0-\u017F]/gi);
+    const vowelCount = (
+        matches
+        ? matches.length
+        : 0
+    );
     if (vowelCount === 0) {
         return {
             message: "Please enter a real city or country name.",
@@ -313,13 +318,17 @@ function displaySearchError(message) {
     results.innerHTML = [
         "<div class='alert alert-warning alert-dismissible fade show ",
         "mx-auto mt-4' style='max-width: 800px;' role='alert'>",
-        "<strong>Oops!</strong> ", message,
+        "<strong>Oops!</strong> ",
+        message,
         "<button type='button' class='btn-close' data-bs-dismiss='alert' ",
         "aria-label='Close'></button>",
         "</div>"
     ].join("");
 
-    results.scrollIntoView({behavior: "smooth", block: "start"});
+    results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
 window.showCityResults = function (city) {
@@ -356,7 +365,6 @@ window.showCityResults = function (city) {
             q
         ].join("");
 
-        // IMPLEMENTED: Lazy loading for the Google Map iframe
         iframe.loading = "lazy";
         iframe.allowFullscreen = true;
 
@@ -364,7 +372,10 @@ window.showCityResults = function (city) {
         results.appendChild(mapContainer);
         renderAttractionList(city);
 
-        results.scrollIntoView({behavior: "smooth", block: "start"});
+        results.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     } catch (ignore) {
         handleMapError();
     }
@@ -386,34 +397,31 @@ function validateWithNominatim(query) {
             headers: {
                 "User-Agent": "Destination-Guide-App"
             }
-        })
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error("Nominatim API unavailable");
-                }
-                return response.json();
-            })
-            .then(function (data) {
-                if (data && data.length > 0) {
-                    resolve({
-                        valid: true,
-                        message: ""
-                    });
-                } else {
-                    resolve({
-                        valid: false,
-                        message: "Destination not found. Please try another city or country."
-                    });
-                }
-            })
-            .catch(function (error) {
-                // If API fails, allow search to proceed (graceful degradation)
-                console.warn("Nominatim validation failed:", error.message);
+        }).then(function (response) {
+            if (!response.ok) {
+                throw new Error("Nominatim API unavailable");
+            }
+            return response.json();
+        }).then(function (data) {
+            if (data && data.length > 0) {
                 resolve({
-                    valid: true,
-                    message: ""
+                    message: "",
+                    valid: true
                 });
+            } else {
+                resolve({
+                    message: "Destination not found. " +
+                    "Please try another city or country.",
+                    valid: false
+                });
+            }
+        }).catch(function (error) {
+            console.warn("Nominatim validation failed:", error.message);
+            resolve({
+                message: "",
+                valid: true
             });
+        });
     });
 }
 
@@ -434,7 +442,11 @@ document.addEventListener("DOMContentLoaded", function () {
         searchForm.addEventListener("submit", function (e) {
             e.preventDefault();
             const input = document.getElementById("cityInput");
-            const val = input.value.trim();
+            const val = (
+                input
+                ? input.value.trim()
+                : ""
+            );
             const validation = isValidSearchQuery(val);
 
             if (!validation.valid) {
@@ -452,9 +464,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 results.appendChild(loadingDiv);
             }
 
-            validateWithNominatim(val).then(function (nominatimValidation) {
-                if (!nominatimValidation.valid) {
-                    displaySearchError(nominatimValidation.message);
+            validateWithNominatim(val).then(function (geoRes) {
+                if (!geoRes.valid) {
+                    displaySearchError(geoRes.message);
                     return;
                 }
 
@@ -472,14 +484,17 @@ document.addEventListener("DOMContentLoaded", function () {
             col.className = "col-12 col-sm-6 col-md-4 mb-4";
 
             col.innerHTML = [
-                "<div class='card h-100 card-destination'>",
-                // IMPLEMENTED: Added loading='lazy' to the image tag
-                "<img src='", city.image,
-                "' class='card-img-top' loading='lazy' ",
-                "alt='", city.alt, "'>",
+                "<div class='card h-100 card-destination'>",
+                "<img src='",
+                city.image,
+                "' class='card-img-top' loading='lazy' ",
+                "alt='",
+                city.alt,
+                "'>",
                 "<div class='card-body d-flex flex-column'>",
                 "<h5 class='card-title text-center fw-bold'>",
-                city.name, "</h5>",
+                city.name,
+                "</h5>",
                 "<button class='btn btn-primary mt-auto search-btn ",
                 "w-100 fw-bold'>Explore</button>",
                 "</div></div>"
@@ -513,9 +528,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         baseCity = cityName;
 
-        validateWithNominatim(cityName).then(function (nominatimValidation) {
-            if (!nominatimValidation.valid) {
-                displaySearchError(nominatimValidation.message);
+        validateWithNominatim(cityName).then(function (geoRes) {
+            if (!geoRes.valid) {
+                displaySearchError(geoRes.message);
                 return;
             }
 
