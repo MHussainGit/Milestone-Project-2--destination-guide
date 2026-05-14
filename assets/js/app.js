@@ -117,6 +117,14 @@ function isValidSearchQuery(query) {
         };
     }
 
+    const consecutiveVowels = /[aeiouy]{3,}/i.test(query);
+    if (consecutiveVowels) {
+        return {
+            message: "Please enter a valid destination name.",
+            valid: false
+        };
+    }
+
     const chars = query.split("");
     const isGibberish = chars.some(function (char, index, arr) {
         const match1 = char === arr[index + 1];
@@ -362,6 +370,54 @@ window.showCityResults = function (city) {
     }
 };
 
+/**
+ * Validates destination name via Nominatim (OpenStreetMap) API.
+ * Checks if the destination exists as a real location.
+ */
+function validateWithNominatim(query) {
+    return new Promise(function (resolve) {
+        const url = [
+            "https://nominatim.openstreetmap.org/search?q=",
+            window.encodeURIComponent(query),
+            "&format=json&limit=1"
+        ].join("");
+
+        fetch(url, {
+            headers: {
+                "User-Agent": "Destination-Guide-App"
+            }
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("Nominatim API unavailable");
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                if (data && data.length > 0) {
+                    resolve({
+                        valid: true,
+                        message: ""
+                    });
+                } else {
+                    resolve({
+                        valid: false,
+                        message: "Destination not found. Please try another city or country."
+                    });
+                }
+            })
+            .catch(function (error) {
+                // If API fails, allow search to proceed (graceful degradation)
+                console.warn("Nominatim validation failed:", error.message);
+                resolve({
+                    valid: true,
+                    message: ""
+                });
+            });
+    });
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const destList = document.getElementById("destList");
     const searchForm = document.getElementById("searchForm");
@@ -386,10 +442,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            baseCity = val;
-            saveRecentSearch(val);
-            renderRecentSearches();
-            window.showCityResults(val);
+            const results = document.getElementById("results");
+            if (results) {
+                results.innerHTML = "";
+                const loadingDiv = document.createElement("div");
+                loadingDiv.className = "alert alert-info mx-auto mt-4";
+                loadingDiv.style.maxWidth = "800px";
+                loadingDiv.textContent = "Validating destination...";
+                results.appendChild(loadingDiv);
+            }
+
+            validateWithNominatim(val).then(function (nominatimValidation) {
+                if (!nominatimValidation.valid) {
+                    displaySearchError(nominatimValidation.message);
+                    return;
+                }
+
+                baseCity = val;
+                saveRecentSearch(val);
+                renderRecentSearches();
+                window.showCityResults(val);
+            });
         });
     }
 
@@ -439,6 +512,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         baseCity = cityName;
-        window.showCityResults(cityName);
+
+        validateWithNominatim(cityName).then(function (nominatimValidation) {
+            if (!nominatimValidation.valid) {
+                displaySearchError(nominatimValidation.message);
+                return;
+            }
+
+            window.showCityResults(cityName);
+        });
     }
 });

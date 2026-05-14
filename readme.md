@@ -723,6 +723,12 @@ Found in: `app.js` (specifically within the `window.showCityResults` function wh
 
 - Attribution: Google Maps Embed API - https://developers.google.com/maps/documentation/embed
 
+Nominatim (OpenStreetMap): Used to validate destination names by checking if they exist as real locations before displaying search results.
+
+Found in: `app.js` (specifically within the `validateWithNominatim()` function which queries `https://nominatim.openstreetmap.org/search` to verify user input against real-world geographic data). The API is called after pattern validation but before rendering the map.
+
+- Attribution: Nominatim (OpenStreetMap) - https://nominatim.org/
+
 ### Images
 #### Favicon
 Favicon (Travel Icon): Found in: The `<head>` of all HTML files (index.html, destinations.html, 404.html) referenced as `assets/favicon/travel.webp`.
