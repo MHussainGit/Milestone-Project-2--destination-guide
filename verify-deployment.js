@@ -80,12 +80,12 @@ function findFirstDifference(localLines, remoteLines) {
       : normalizeText(remoteContent);
 
     if (localNormalized === remoteNormalized) {
-      console.log(`? ${resource.local} matches deployment`);
+      console.log(`✅ ${resource.local} matches deployment`);
       continue;
     }
 
     failed = true;
-    console.error(`? ${resource.local} does not match deployment`);
+    console.error(`❌ ${resource.local} does not match deployment`);
 
     const localLines = localNormalized.split('\n');
     const remoteLines = remoteNormalized.split('\n');
